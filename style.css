@@ -392,12 +392,14 @@ h2 {
   position: relative; 
   height: 100%; /* Perquè ocupi tota la pàgina i l'absolute funcioni bé */
   box-sizing: border-box;
+  overflow-y: auto; /* Crea el scroll vertical si el text sobra */
+  overflow-x: hidden; /* Evita qualsevol moviment lateral estrany */
 }
 
 /* El contenidor del peu de pàgina */
 .peu-pagina {
   position: absolute;
-  bottom: 12px; /* Distància des de baix */
+  bottom: 0px; /* Distància des de baix */
   right: 37px;  /* Distància des de la dreta */
   
   display: flex; /* Alinea el text i la fletxa un al costat de l'altre */
@@ -434,4 +436,22 @@ h2 {
   width: 53px;
   margin-bottom: -10px;
  }
+}
+
+/* Personalització de la barra de scroll per a .page-content */
+.page-content::-webkit-scrollbar {
+  width: 6px; /* Barra més primeta */
+}
+
+.page-content::-webkit-scrollbar-track {
+  background: transparent; /* El fons de la barra és invisible */
+}
+
+.page-content::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Color de la barra suau */
+  border-radius: 10px; /* Vores arrodonides */
+}
+
+.page-content::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4); /* Es fosqueix en passar el ratolí */
 }
