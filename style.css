@@ -73,7 +73,7 @@ body {
 /* --- ESTILS DE LA LLIBRETA I ANIMACIÓ 3D --- */
 .llibreta {
   position: relative;
-  width: 400px;
+  width: 350px !important;
   /* Substitueix height: 500px; per això: */
   aspect-ratio: 4 / 5;
   box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
@@ -249,6 +249,7 @@ h2 {
   cursor: pointer;
   filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.3)); /* Ombra d'enganxina */
   transition: transform 0.2s ease;
+  z-index: 10000 !important;
 }
 
 /* El truc orgànic: rotem les parells cap a un cantó i les senars cap a l'altre */

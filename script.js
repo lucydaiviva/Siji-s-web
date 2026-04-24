@@ -47,8 +47,7 @@ botons[0].onclick = () => animarAPagina(0); // Portada
    // Obrir popup en clicar un producte
     productes.forEach(producte => {
     producte.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
+              
         // Omplim el popup amb les dades de l'enganxina
         imgPopup.src = producte.src;
         titolPopup.textContent = producte.getAttribute('data-nom');
