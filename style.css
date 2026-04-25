@@ -14,24 +14,28 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0ece1; /* Color de fons d'escriptori */
+  background-color: #ffffff; /* Color de fons d'escriptori */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url(assets/511xI0rfNKL._AC_UF894\,1000_QL80_.jpg)
+  /*background-image: url(assets/511xI0rfNKL._AC_UF894\,1000_QL80_.jpg)*/
 }
 
 .escriptori {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 85%;
+max-width: 550px;
+  margin: 0 auto;
 }
 
 /* --- ESTILS DELS MARCAPÀGINES --- */
 .marcapagines {
   display: flex;
   gap: 10px;
-  margin-bottom: -2; /* Perquè s'enganxin a la llibreta */
+  margin-bottom: -2px;    /* IMPORTANT: Al teu codi faltava el 'px' aquí i per això no es solapava! */
   padding-left: 20px;
-  width: 100%;
+  width: 100%;            /* Ara ocuparà màxim els 600px de l'escriptori */
+  box-sizing: border-box; /* Evita que el padding espatlli l'amplada */
   position: relative;
   z-index: 0;
 }
@@ -45,9 +49,10 @@ body {
   font-weight: bold;
   box-shadow: 2px -2px 5px rgba(0,0,0,0.1);
   padding: 8px 15px; /* Hem reduït una mica el padding també */
-  font-size: 0.8rem;  /* Font més petita */
+  font-size: 0.6rem;  /* Font més petita */
   margin-bottom: 9px;
-  font-family: gap;
+  font-family: gap, sans-serif;
+  color: #000000;
 }
 
 #monomonitos-tab {
@@ -70,12 +75,11 @@ body {
   z-index: 9000;
 }
 
-/* --- ESTILS DE LA LLIBRETA I ANIMACIÓ 3D --- */
 .llibreta {
-  position: relative;
-  width: 350px !important;
-  /* Substitueix height: 500px; per això: */
-  aspect-ratio: 4 / 5;
+ width: 90vh;
+ max-width: 550px;
+  /* Calculem l'aspect-ratio: 400/550 = 0.727 (o simplement posem la fracció) */
+  aspect-ratio: 400 / 550;
   box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
   border-radius: 0 5px 5px 0;
   z-index: 10;
@@ -88,7 +92,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 40px;
+  padding: 10px;
   box-sizing: border-box;
   border: 2px none #333;
   border-radius: 0 5px 5px 0;
@@ -141,14 +145,10 @@ body {
   display: block; /* Evita un petit marge en blanc que els navegadors posen per defecte sota les imatges */
 }
 @media (min-width: 768px) {
-  .llibreta {
-    width: 64vh; 
-    /* Elimina height: 80vh; i afegeix l'aspect-ratio: */
-    aspect-ratio: 4 / 5;
-  }
+  
 
   .tab {
-    font-size: 0.9rem; /* Una mica més petit que l'1rem que tenies */
+    font-size: 1rem; /* Una mica més petit que l'1rem que tenies */
     padding: 10px 20px;
   }
   #tab-transparent {
@@ -267,7 +267,7 @@ h2 {
 #fons-popup {
   position: fixed;
   top: 0; left: 0;
-  width: 100vw; height: 100vh;
+  width: 100%; height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 9999; /* Per sobre de tot */
   display: flex;
@@ -390,11 +390,13 @@ h2 {
 }
 /* Assegurem que el contingut de la pàgina és la referència per col·locar el peu */
 .page-content {
-  position: relative; 
-  height: 100%; /* Perquè ocupi tota la pàgina i l'absolute funcioni bé */
+  width: 100%;
+  height: 100%;
+  padding: 20px;
   box-sizing: border-box;
-  overflow-y: auto; /* Crea el scroll vertical si el text sobra */
-  overflow-x: hidden; /* Evita qualsevol moviment lateral estrany */
+  overflow-y: auto;          /* Activa l'scroll vertical quan el text és llarg */
+  overflow-x: hidden;        /* Evita que el text es mogui de costat */
+  -webkit-overflow-scrolling: touch; /* Fa que l'scroll sigui suau al mòbil */
 }
 
 /* El contenidor del peu de pàgina */
@@ -455,4 +457,64 @@ h2 {
 
 .page-content::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.4); /* Es fosqueix en passar el ratolí */
+}
+.peu-navegacio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+  transition: all 0.4s ease;
+  font-family: 'gap-black', sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.fletxa-control {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  transition: transform 0.2s;
+}
+
+.fletxa-control img {
+  width: 40px; /* Ajusta la mida al teu gust */
+  height: auto;
+  transition: filter 0.4s ease;
+}
+
+.fletxa-control.esquerra img {
+  transform: scaleX(-1); /* Gira la fletxa cap a l'esquerra */
+}
+
+.fletxa-control:active { transform: scale(0.9); }
+
+/* --- CLASSES DE COLORS I FILTRES --- */
+
+/* Portada: Negre (eliminem color amb saturació 0 i baixem brillantor) */
+.seccio-portada #etiqueta-pagina { color: #000000; }
+.seccio-portada img { filter: grayscale(1) brightness(0); }
+
+/* Shop: Verd (color original de la teva fletxa) */
+.seccio-shop #etiqueta-pagina { color: #7cbe86; }
+.seccio-shop img { filter: hue-rotate(0deg); }
+
+/* Portfolio: Blau (rotem el verd uns 160 graus cap al blau) */
+.seccio-portfolio #etiqueta-pagina { color: #3498db; }
+.seccio-portfolio img { filter: hue-rotate(160deg); }
+
+/* CV: Violeta (rotem uns 240 graus) */
+.seccio-cv #etiqueta-pagina { color: #9b59b6; }
+.seccio-cv img { filter: hue-rotate(240deg); }
+.peu-navegacio {
+  position: relative;
+  z-index: 10; /* Per sobre de qualsevol ombra de la llibreta */
+  margin-top: 30px;
+  pointer-events: all; /* Força que els clics passin */
+}
+
+.fletxa-control {
+  cursor: pointer;
+  pointer-events: auto;
 }
