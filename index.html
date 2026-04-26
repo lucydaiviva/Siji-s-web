@@ -21,7 +21,9 @@
     <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
 
 <div class="llibreta" id="llibreta-interactiva">
+
   
+
 <div class="pagina portada page-cover" data-density="soft">
   <div class="page-content">
     <h1 class="titol-portada">siji</h1>
@@ -124,12 +126,42 @@ Aliquam sodales nec lacus vitae auctor. Vivamus blandit mauris est, at ultrices 
 
 
   <div class="pagina CV">
-    <div class="page-content">
-      <h2>Currículum Vitae</h2>
-      <p>La meva experiència i habilitats.</p>
+    <div class="page-content contingut-cv">
+      
+<a href="assets/el-meu-curriculum.pdf" target="_blank" class="boto-cv">See my curriculum</a>    </div>
+  </div>
+</div>
+
+
+<div class="pagina guestbook">
+  <div class="page-content">
+    <h2>Guestbook</h2>
+
+    <div class="guestbook-form-container">
+      <form id="guestbook-form">
+        <div class="input-group">
+          <label for="gb-nom">Name</label>
+          <input type="text" id="gb-nom" required placeholder="" maxlength="50">
+        </div>
+        <div class="input-group">
+          <label for="gb-missatge">Message</label>
+          <textarea id="gb-missatge" required placeholder="" maxlength="2000" rows="5"></textarea>
+          <div class="char-counter"><span id="char-count">0</span> / 2000</div>
+        </div>
+        <button type="submit" class="boto-enviar" id="btn-enviar-gb">Write</button>
+        <p id="gb-error" class="error-msg" style="display: none;"></p>
+      </form>
+    </div>
+
+    <div class="guestbook-messages">
+      <h3>Recent notes</h3>
+      <div id="messages-container">
+        </div>
     </div>
   </div>
 </div>
+
+
 <div id="peu-dinamic" class="peu-navegacio seccio-portada">
         <button id="btn-ant" class="fletxa-control esquerra">
             <img src="assets/fletxa.png" alt="Anterior" style="pointer-events: none;">
@@ -152,7 +184,7 @@ Aliquam sodales nec lacus vitae auctor. Vivamus blandit mauris est, at ultrices 
         <p id="popup-preu"></p>
         <p style="font-size: 0.9rem; color: #666;">El pagament i les dades d'enviament es gestionen de forma segura a través de Stripe.</p>
         <a id="boto-stripe" href="#" class="boto-comprar" style="text-decoration: none; text-align: center; display: block;">
-            💳 Comprar ara
+            Buy
         </a>
       </div>
     </div>

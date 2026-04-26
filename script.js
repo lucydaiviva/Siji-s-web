@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         minWidth: 300,
         maxWidth: 800, 
         minHeight: 400,
-        maxHeight: 1200,
+        maxHeight: window.innerHeight * 0.8, // Limitem l'alçada al 80% de la finestra actual
         showCover: false, 
         mobileScrollSupport: true,
         useMouseEvents: false
@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
         1: { text: "Monomonitos Shop", classe: "seccio-shop" },
         2: { text: "Monomonitos Shop 2", classe: "seccio-shop" },
         3: { text: "Portfolio", classe: "seccio-portfolio" },
-        4: { text: "CV", classe: "seccio-cv" }
+        4: { text: "CV", classe: "seccio-cv" },
+        5: { text: "Guest Book", classe: "seccio-guestbook" }
     };
 
     function actualitzarPeu(numPagina) {
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Gestió de visibilitat de fletxes
         document.getElementById('btn-ant').style.visibility = (numPagina === 0) ? "hidden" : "visible";
-        document.getElementById('btn-seg').style.visibility = (numPagina === 4) ? "hidden" : "visible"; // ATENCIÓ: canviat a 4 per l'última pàgina
+        document.getElementById('btn-seg').style.visibility = (numPagina === 5) ? "hidden" : "visible"; // ATENCIÓ: canviat a 4 per l'última pàgina
     }
 
     // Controls de les fletxes
@@ -119,5 +120,130 @@ document.addEventListener('DOMContentLoaded', function() {
         content.addEventListener('touchmove', (e) => {
             e.stopPropagation(); 
         }, { passive: true });
+    });
+});
+/* =========================================
+   LÒGICA DEL GUESTBOOK
+   ========================================= */
+const formGb = document.getElementById('guestbook-form');
+const inputMissatge = document.getElementById('gb-missatge');
+const charCount = document.getElementById('char-count');
+const messagesContainer = document.getElementById('messages-container');
+const errorMsg = document.getElementById('gb-error');
+
+// Comptador de caràcters en temps real
+if (inputMissatge) {
+  inputMissatge.addEventListener('input', () => {
+    charCount.textContent = inputMissatge.value.length;
+  });
+}
+
+// Funció per comprovar si l'usuari ja ha enviat 2 missatges avui
+function potEnviarAvui() {
+  const avui = new Date().toLocaleDateString();
+  const registre = JSON.parse(localStorage.getItem('guestbook_limit')) || { data: avui, count: 0 };
+
+  // Si és un dia diferent, resetegem el comptador
+  if (registre.data !== avui) {
+    registre.data = avui;
+    registre.count = 0;
+  }
+
+  if (registre.count >= 2) {
+    return false;
+  }
+  
+  return true;
+}
+
+// Funció per registrar un nou enviament
+function registrarEnviament() {
+  const avui = new Date().toLocaleDateString();
+  const registre = JSON.parse(localStorage.getItem('guestbook_limit')) || { data: avui, count: 0 };
+  registre.count++;
+  localStorage.setItem('guestbook_limit', JSON.stringify(registre));
+}
+
+// Gestionar l'enviament del formulari
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw7-qDyeDSrGYeSsWhID6Qda5PcILlb9DHPpUd5oVEDQiWGtJD6bWkDkoo-teZJ436s/exec';
+
+if (formGb) {
+  formGb.addEventListener('submit', (e) => {
+    e.preventDefault();
+    errorMsg.style.display = 'none';
+    const btn = document.getElementById('btn-enviar-gb');
+
+    if (!potEnviarAvui()) {
+      errorMsg.textContent = "Has arribat al límit de 2 notes per dia. Torna demà!";
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    // Bloquegem el botó mentre s'envia
+    btn.disabled = true;
+    btn.textContent = "Enviant...";
+
+    const nom = document.getElementById('gb-nom').value;
+    const missatge = inputMissatge.value;
+    const dataActual = new Date().toLocaleString();
+
+    const dades = {
+      nom: nom,
+      missatge: missatge,
+      data: dataActual
+    };
+
+    // Enviament a Google Sheets
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors', // Necessari per evitar problemes de CORS amb Apps Script
+      cache: 'no-cache',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dades)
+    })
+    .then(() => {
+      // Com que fem 'no-cors', no podem llegir la resposta JSON, 
+      // però si no dóna error és que ha anat bé.
+      afegirNotaALaPantalla(nom, missatge, dataActual);
+      registrarEnviament();
+      formGb.reset();
+      charCount.textContent = '0';
+      btn.disabled = false;
+      btn.textContent = "Deixar nota";
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      errorMsg.textContent = "Hi ha hagut un error en enviar la nota.";
+      errorMsg.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = "Deixar nota";
+    });
+  });
+}
+
+// Funció visual per pintar la nota a la pàgina
+function afegirNotaALaPantalla(nom, missatge, data) {
+  const card = document.createElement('div');
+  card.className = 'missatge-card';
+  card.innerHTML = `
+    <div class="missatge-header">
+      <strong>${nom}</strong>
+      <span>${data}</span>
+    </div>
+    <div class="missatge-body">
+      ${missatge.replace(/\n/g, '<br>')} </div>
+  `;
+  // Ho afegim a dalt de tot de la llista
+  messagesContainer.prepend(card);
+}
+
+window.addEventListener('load', () => {
+  fetch(SCRIPT_URL)
+    .then(response => response.json())
+    .then(notes => {
+      // Les notes venen en ordre cronològic, les invertim per veure la més nova primer
+      notes.reverse().forEach(nota => {
+        afegirNotaALaPantalla(nota.nom, nota.missatge, nota.data);
+      });
     });
 });
