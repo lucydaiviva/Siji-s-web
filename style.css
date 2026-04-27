@@ -10,9 +10,7 @@
 /* Estils generals per centrar la llibreta a la pantalla */
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  
   height: 100vh;
   background-color: #ffffff; /* Color de fons d'escriptori */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,6 +20,7 @@ background-size: cover; /* Fa que ocupi tot l'espai */
   background-position: center; /* Manté el centre de la imatge al mig */
   background-repeat: no-repeat; /* Evita que la imatge es repeteixi */
 animation: cameraHandheld 12s infinite ease-in-out;
+position: relative;
 }
 
 @keyframes cameraHandheld {
@@ -60,12 +59,23 @@ animation: cameraHandheld 12s infinite ease-in-out;
 
 
 .escriptori {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px; 
+  height: 550px;
+  
+  /* LA CLAU ESTÀ AQUÍ: Centrem estirant l'element exactament la meitat de la seva mida cap a l'esquerra i cap amunt */
+  margin-left: -200px; /* La meitat de 550px */
+  margin-top: -275px;  /* La meitat de 650px */
+  
+  /* Centrem el contingut de dins de l'escriptori (llibreta i pestanyes) */
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 85%;
-max-width: 550px;
-  margin: 0 auto;
+  
+  transform-origin: center center;
 }
 
 /* --- ESTILS DELS MARCAPÀGINES --- */
@@ -89,7 +99,7 @@ max-width: 550px;
   font-weight: bold;
   box-shadow: 2px -2px 5px rgba(0,0,0,0.1);
   padding: 8px 15px; /* Hem reduït una mica el padding també */
-  font-size: 0.6rem;  /* Font més petita */
+  font-size: 0.8rem;  /* Font més petita */
   margin-bottom: 9px;
   font-family: gap, sans-serif;
   color: #000000;
@@ -142,8 +152,8 @@ max-width: 550px;
 }
 
 /* Colors de fons per distingir les pàgines (com si fossin separadors) */
-.portada { background-color: #ffde59; } /* Groc */
-.cv { background-color: #5ce1e6; } /* Blau clar */
+.portada { background-color: #ffffff; }
+.cv { background-color: #ffffff; }
 
 .Portfoli {
   /* Substitueix 'la-teva-imatge.jpg' pel nom real de l'arxiu que tinguis a la carpeta assets */
@@ -164,7 +174,7 @@ max-width: 550px;
 
 .Monomonitos {
   /* Substitueix 'la-teva-imatge.jpg' pel nom real de l'arxiu que tinguis a la carpeta assets */
-  background-image: url('assets/fondo-shop.jpeg'); 
+  background-image: url('assets/shop-bk.png'); 
   
   /* Aquestes tres línies són la clau perquè ocupi tota la pàgina bé */
   background-size: cover; 
@@ -173,6 +183,12 @@ max-width: 550px;
   
   /* Mantenim un color de fons per si la imatge triga a carregar */
   background-color: #ffffff; 
+}
+.read-me {
+  background-image: url('assets/WhatsApp Image 2026-04-21 at 10.13.42.jpeg');
+    background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
 }
 .portada {
   padding: 0; /* Traiem l'espai interior perquè la imatge toqui les vores */
@@ -185,28 +201,7 @@ max-width: 550px;
   object-fit: cover; /* Fa que la imatge ompli tot l'espai sense deformar-se (la retallarà una mica si les proporcions no quadren exactament) */
   display: block; /* Evita un petit marge en blanc que els navegadors posen per defecte sota les imatges */
 }
-@media (min-width: 600px) {
-  
 
-  .tab {
-    font-size: 1rem; /* Una mica més petit que l'1rem que tenies */
-    padding: 10px 20px;
-  }
-  #tab-transparent {
-    width: 160px !important;
-  }
-}
-.pagina-darrere {
-  background-image: url('assets/WhatsApp Image 2026-04-21 at 10.13.42.jpeg'); /* Posa la ruta de la teva imatge aquí */
-  background-size: cover;
-  background-position: center;
-  background-color: #f0ece1; /* Color de fons per defecte per si triga a carregar */
-}
-
-/* Això elimina la "caixa invisible" que tapa els marcapàgines */
-.stPageFlip {
-    pointer-events: none !important;
-}
 
 /* Això fa que les pàgines i el seu contingut tornin a ser clicables */
 .stPageFlip div, 
@@ -674,4 +669,45 @@ h2 {
   color: #e74c3c;
   margin-top: 10px;
   font-size: 0.9rem;
+}
+
+/* Estils per fer flotar el post-it */
+.postit-container {
+  position: absolute;
+  top: 60px;    /* Ajusta la posició segons vulguis */
+  right: 40px;  /* Ajusta la posició segons vulguis */
+  width: 120px; /* Mida del post-it */
+  cursor: pointer;
+  
+  /* Fem que el text es centri respecte a la caixa */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Aquí rotem TOT el conjunt (imatge + text) */
+  transform: rotate(-5deg); 
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.postit-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.postit-text {
+  position: absolute;
+  /* Triem una font que sembli escrita a mà */
+  font-family: 'Comic Sans MS', cursive, sans-serif; 
+  font-size: 16px;
+  color: #2e2e2e;
+  text-align: center;
+  pointer-events: none; /* Això fa que el clic "travessi" el text i vagi al contenidor */
+  user-select: none;
+  font-weight: bold;
+  transform: rotate(-10deg);
+}
+.postit-container:hover {
+  transform: rotate(0deg) scale(1.1) !important; /* Efecte divertit en passar el ratolí */
 }

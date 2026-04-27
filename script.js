@@ -3,21 +3,43 @@ document.addEventListener('DOMContentLoaded', function() {
     const llibretaElement = document.querySelector('.llibreta');
     
     const pageFlip = new St.PageFlip(llibretaElement, {
-        width: 400,
-        height: 550,
-        size: "stretch",
-        mode: 'portrait',       
-        clickEventForward: false, 
-        usePortrait: true,      
-        startPage: 0,
-        minWidth: 300,
-        maxWidth: 800, 
-        minHeight: 400,
-        maxHeight: window.innerHeight * 0.8, // Limitem l'alçada al 80% de la finestra actual
-        showCover: false, 
-        mobileScrollSupport: true,
-        useMouseEvents: false
-    });
+    width: 400,
+    height: 550,
+    size: "fixed",           // <-- Canvi important: d'stretch a fixed
+    mode: 'portrait',       
+    clickEventForward: false, 
+    usePortrait: true,      
+    startPage: 0,
+    showCover: false, 
+    mobileScrollSupport: true,
+    useMouseEvents: false
+    // ELIMINA minWidth, maxWidth, minHeight i maxHeight. Ja no els necessitem!
+});
+function ajustarEscalaEscriptori() {
+        const escriptori = document.querySelector('.escriptori');
+        if (!escriptori) return;
+
+        // Canvi clau: Utilitzem 400px (l'amplada real de la llibreta) perquè els marges siguin perfectes
+        const ampladaBase = 400; 
+        const alcadaBase = 550;  
+
+        // 20px = 10px de marge esquerre + 10px de marge dret
+        const ampladaDisponible = window.innerWidth - 60; 
+        const alcadaDisponible = window.innerHeight - 60;
+
+        const escalaX = ampladaDisponible / ampladaBase;
+        const escalaY = alcadaDisponible / alcadaBase;
+
+        let escalaFinal = Math.min(escalaX, escalaY);
+
+        if (escalaFinal > 1.1) escalaFinal = 1.1; 
+
+        escriptori.style.transform = `scale(${escalaFinal})`;
+    }
+
+    // Ara s'executarà correctament perquè l'HTML ja existeix!
+    ajustarEscalaEscriptori();
+    window.addEventListener('resize', ajustarEscalaEscriptori);
 
     pageFlip.loadFromHTML(document.querySelectorAll('.pagina'));
 
@@ -31,19 +53,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     botons[0].onclick = () => animarAPagina(0); // Portada
-    botons[1].onclick = () => animarAPagina(1); // Monomonitos
-    botons[2].onclick = () => animarAPagina(3); // Portfoli
-    botons[3].onclick = () => animarAPagina(4); // CV
+    botons[1].onclick = () => animarAPagina(2); // Monomonitos
+    botons[2].onclick = () => animarAPagina(4); // Portfoli
+    botons[3].onclick = () => animarAPagina(5); // CV
 
+    // --- Lògica del clic al Post-it ---
+const postitLink = document.getElementById('postit-link');
+if (postitLink) {
+    postitLink.onclick = function() {
+        animarAPagina(1); // Ens porta a la pàgina 1
+    };
+}
 
     // --- 3. LÒGICA DE LES FLETXES I EL PEU DE PÀGINA ---
     const infoPagines = {
         0: { text: "Portada", classe: "seccio-portada" },
-        1: { text: "Monomonitos Shop", classe: "seccio-shop" },
-        2: { text: "Monomonitos Shop 2", classe: "seccio-shop" },
-        3: { text: "Portfolio", classe: "seccio-portfolio" },
-        4: { text: "CV", classe: "seccio-cv" },
-        5: { text: "Guest Book", classe: "seccio-guestbook" }
+        1: { text: "About", classe: "seccio-portada" },
+        2: { text: "Monomonitos Shop", classe: "seccio-shop" },
+        3: { text: "Monomonitos Shop 2", classe: "seccio-shop" },
+        4: { text: "Portfolio", classe: "seccio-portfolio" },
+        5: { text: "CV", classe: "seccio-cv" },
+        6: { text: "Guest Book", classe: "seccio-guestbook" }
     };
 
     function actualitzarPeu(numPagina) {
@@ -58,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Gestió de visibilitat de fletxes
         document.getElementById('btn-ant').style.visibility = (numPagina === 0) ? "hidden" : "visible";
-        document.getElementById('btn-seg').style.visibility = (numPagina === 5) ? "hidden" : "visible"; // ATENCIÓ: canviat a 4 per l'última pàgina
+        document.getElementById('btn-seg').style.visibility = (numPagina === 6) ? "hidden" : "visible"; // ATENCIÓ: canviat a 4 per l'última pàgina
     }
 
     // Controls de les fletxes
