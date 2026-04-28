@@ -378,21 +378,6 @@ h2 {
 
 .fila-form input { flex: 1; }
 
-.boto-comprar {
-  background-color: #0070ba; /* Color PayPal */
-  color: white;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.2s;
-}
-
-.boto-comprar:hover { background-color: #005ea6; }
-
 /* Adaptació a pantalles grans */
 @media (min-width: 768px) {
   .popup-contingut {
@@ -710,4 +695,209 @@ h2 {
 }
 .postit-container:hover {
   transform: rotate(0deg) scale(1.1) !important; /* Efecte divertit en passar el ratolí */
+}
+
+/* Estil més petit i transparent per l'excl. IVA */
+.popup-taxa {
+    font-size: 0.7rem; 
+    opacity: 0.6; /* Fa que el text es vegi translúcid */
+    font-weight: normal;
+    display: block; /* Perquè surti a la línia de sota del preu */
+    color: #ffffff; /* Assegura't que el color s'ajusta al fons del popup */
+    margin-top: 2px;
+}
+
+/* Ajustos per si hi ha vàries imatges al popup */
+#popup-galeria {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espai entre les imatges */
+    max-height: 50vh; /* Opcional: permet fer scroll si hi ha moltes imatges */
+    overflow-y: auto; 
+}
+
+#popup-galeria img {
+    width: 100%;
+    max-width: 250px;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.2));
+}
+
+#popup-descripcio {
+    color: #ffffff; /* Ajusta segons el teu disseny */
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-top: 15px;
+    font-family: inherit;
+}
+
+/* --- ESTILS DEL CARRUSSEL --- */
+#carrusel-contenidor {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px; /* Ajusta la mida màxima de la imatge */
+    margin: 0 auto;
+}
+
+#carrusel-img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.2));
+}
+
+/* Fletxes del carrussel */
+.carrusel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s;
+    
+    /* Per fer-les cercles perfectes: */
+    width: 40px; 
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    
+    /* Centrem el símbol interior */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.carrusel-btn:hover {
+    background-color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+#carrusel-ant { left: -15px; }
+#carrusel-seg { right: -15px; }
+
+/* --- ESTIL DEL BOTÓ COMPRAR --- */
+.boto-comprar {
+    display: inline-block;
+    margin-top: 0px;
+    padding: 10px 20px;
+    background-color: #f4f9b1; /* El color groguet de les teves pestanyes */
+    color: #000;
+    text-decoration: none;
+    font-family: 'gap-black', sans-serif;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.boto-comprar:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.3);
+}
+
+/* --- ESTIL DE LA IMATGE CLICABLE --- */
+#carrusel-img {
+    cursor: zoom-in; /* Indica que es pot clicar per ampliar */
+}
+
+/* --- CAPA DEL ZOOM (FULLSCREEN) --- */
+#zoom-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999 !important; /* Per sobre de tot */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+#zoom-img {
+    max-height: 90vh; /* Ocupa quasi tota l'alçada */
+    max-width: 90vw;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
+}
+
+#tancar-zoom {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+#zoom-overlay.ocult {
+    display: none;
+}
+/* Estil per a les icones de les pestanyes (marcapàgines) */
+.icona-tab {
+    width: 20px; /* Ajusta la mida al teu gust (ex: 20px, 30px...) */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Centra la imatge horitzontalment dins la pestanya */
+    /* pointer-events: none; (Opcional: per evitar que al fer clic a la imatge falli el botó, tot i que al teu JS ja ho gestiones bé) */
+}
+.bienvenida {
+  /* 1. Fem que el color base del text sigui transparent */
+  color: transparent;
+  
+  /* 2. Creem un fons degradat amb tots els colors (pots canviar-los si vols) */
+  background-image: linear-gradient(
+    to right, 
+    #ff00d9, #ffea00, #35ffee, #ff00d9
+  );
+  
+  /* Fem el fons el doble de llarg per poder-lo animar */
+  background-size: 200% auto;
+  -webkit-text-stroke: 1px #000000;
+  /* 3. LA MÀGIA: Retallem el fons perquè només es vegi per DINS de les lletres */
+  -webkit-background-clip: text;
+  background-clip: text;
+  
+  /* 4. Una ombra sòlida molt típica dels 90s/00s */
+ filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.6));
+  
+  /* Lletra gruixuda perquè els colors es vegin millor */
+  font-weight: 800; 
+  line-height: 1.4;
+  
+  /* 5. Apliquem les dues animacions: color i moviment */
+  animation: 
+    colorsRetro 4s linear infinite,
+    surarParagraf 4s ease-in-out infinite;
+}
+
+/* --- ANIMACIÓ 1: Fa que els colors rellisquin per dins del text --- */
+@keyframes colorsRetro {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* --- ANIMACIÓ 2: Fa que tot el text pugi i baixi suaument --- */
+@keyframes surarParagraf {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.read-me-gifs{
+  flex: content;
+  align-content: center;
+  margin-left: 30px;
+}
+.read-me-gifs img{
+  max-width: 100px;
 }

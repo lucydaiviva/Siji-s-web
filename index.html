@@ -10,10 +10,14 @@
 
   <div class="escriptori">
     
-    <nav class="marcapagines">
-  <button class="tab" id="portada-tab">Portada</button>
-  <button class="tab" id="monomonitos-tab">Monomonitos</button>
-  <button class="tab" id="portfoli-tab">Portfoli</button>
+<nav class="marcapagines">
+  <button class="tab" id="portada-tab">
+      <img src="assets/portada.webp" alt="Portada" class="icona-tab" style="width: 17px; margin-bottom: 2px;">
+  </button>
+  <button class="tab" id="monomonitos-tab">
+      <img src="assets/monomonitos.webp" alt="Monomonitos" class="icona-tab">
+  </button>
+  <button class="tab" id="portfoli-tab">Portfolio</button>
   <button class="tab" id="cv-tab">CV</button>
   <div style="width: 15px;" id="tab-transparent"></div>
 </nav>
@@ -32,15 +36,19 @@
   <span class="postit-text">read me</span>
 </div>
     
-    <img src="assets/portada-web.png" alt="" class="img-portada">
+    <img src="assets/portada-web.webp" alt="" class="img-portada">
   </div>
 </div>
 
 <div class="pagina read-me" data-density="soft">
   <div class="page-content" style="position: relative; overflow: visible;">
-    
-<img src="assets/cartel.png" alt="" style="width: 200px; height: auto; position: absolute; bottom: 0px; right: 90px;">
-    
+<img src="assets/cartel.png" alt="" style="width: 200px; height: auto; position: absolute; top: 0px; right: 84px;">
+    <p class="bienvenida" style="margin: 200px 34px 0 60px">Welcome to my web page I'm Siji Bernita. A latina and trans artist based in Amsterdam. Feel free to navigate trohuh this sticker book. You can find my Monomonitos shop and also more information on my work. Thank you for your visit.</p>
+ <div class="read-me-gifs">
+  <img src="assets/bettyheadsmall.gif" alt="" >
+  <img src="assets/Makeup Ai GIF.gif" alt="" >
+  <img src="assets/tumblr_ouklduFsqF1wpgn2yo1_250.gif" style="margin-bottom: 40px;" alt="" >
+  </div>
   </div>
 </div>
 
@@ -48,41 +56,23 @@
     <div class="page-content">
       
       <div class="aparador">
-      <img src="assets/DSC_8820.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
+      <img src="assets/1.webp" class="enganxina" 
+    data-nom="Vase corazón caramelo <3" 
+     data-preu="250" 
+     data-imatges-popup="assets/caramelo0.png"
+     data-descripcio="size_45 x 30 cm<br>Earthware vase with low temperature glossy colored glazes."
      data-stripe="https://buy.stripe.com/teu_enllaç_1">
         <img src="assets/2.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
+     data-nom="Vase pumpkin" 
+     data-preu="90" 
+     data-imatges-popup="assets/pumpkin.jpeg, assets/pumpkin2.jpeg, assets/pumpkin3.jpeg"
+     data-descripcio="size_ <br>Black stoneware with high temperature mate glazes."
      data-stripe="https://buy.stripe.com/teu_enllaç_1">
      <img src="assets/3.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
-     data-stripe="https://buy.stripe.com/teu_enllaç_1">
-     <img src="assets/Jarron 1.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
-     data-stripe="https://buy.stripe.com/teu_enllaç_1">
-     <img src="assets/Jarron 1.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
-     data-stripe="https://buy.stripe.com/teu_enllaç_1">
-     <img src="assets/Jarron 1.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
-     data-stripe="https://buy.stripe.com/teu_enllaç_1">
-     <img src="assets/Jarron 1.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
-     data-stripe="https://buy.stripe.com/teu_enllaç_1">
-     <img src="assets/Jarron 1.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
-     data-stripe="https://buy.stripe.com/teu_enllaç_1">
-     <img src="assets/Jarron 1.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
+     data-nom="Vase lacito" 
+     data-preu="50" 
+     data-imatges-popup="assets/lacito.jpeg, assets/lazito2.jpeg"
+     data-descripcio="size_ <br>White stoneware with high temperature mate glazes."
      data-stripe="https://buy.stripe.com/teu_enllaç_1">
       </div>
     </div>
@@ -190,19 +180,38 @@ Aliquam sodales nec lacus vitae auctor. Vivamus blandit mauris est, at ultrices 
   <div class="finestra-popup">
     <button id="tancar-popup">&times;</button>
     <div class="popup-contingut">
-      <div class="popup-esquerra"><img id="popup-img" src=""></div>
+      
+      <div class="popup-esquerra">
+        <div id="carrusel-contenidor">
+          <button id="carrusel-ant" class="carrusel-btn">&#10094;</button>
+          <img id="carrusel-img" src="" alt="Imatge producte">
+          <button id="carrusel-seg" class="carrusel-btn">&#10095;</button>
+        </div>
+      </div>
+      
       <div class="popup-dreta">
         <h3 id="popup-titol"></h3>
-        <p id="popup-preu"></p>
-        <p style="font-size: 0.9rem; color: #666;">El pagament i les dades d'enviament es gestionen de forma segura a través de Stripe.</p>
-        <a id="boto-stripe" href="#" class="boto-comprar" style="text-decoration: none; text-align: center; display: block;">
-            Buy
-        </a>
+        
+        <div class="caixa-preu">
+           <span id="popup-preu"></span>
+           <span class="popup-taxa">excl. IVA/tax &amp; shipping</span>
+        </div>
+        
+        <div id="popup-descripcio"></div>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 0;">Data and payment are processed safely via Stripe.</p>
+        <a id="boto-stripe" href="#" target="_blank" class="boto-comprar">Buy now</a>
       </div>
+      
     </div>
   </div>
 </div>
+</div>
+</div>
   
+<div id="zoom-overlay" class="ocult">
+  <button id="tancar-zoom">&times;</button>
+  <img id="zoom-img" src="" alt="Zoom producte">
+</div>
 
   <script src="script.js"></script>
 </body>

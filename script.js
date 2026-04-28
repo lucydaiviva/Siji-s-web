@@ -111,39 +111,81 @@ if (postitLink) {
 
     // --- 4. LÒGICA DE LA BOTIGA (POPUP I ENGANXINES) ---
     const productes = document.querySelectorAll('.enganxina');
-    const fonsPopup = document.getElementById('fons-popup');
-    const botoTancar = document.getElementById('tancar-popup');
+const fonsPopup = document.getElementById('fons-popup');
+const botoTancar = document.getElementById('tancar-popup');
+const titolPopup = document.getElementById('popup-titol');
+const preuPopup = document.getElementById('popup-preu');
+const descripcioPopup = document.getElementById('popup-descripcio');
+const botoStripe = document.getElementById('boto-stripe'); // El botó de comprar!
+
+// Variables del carrussel
+const carruselImg = document.getElementById('carrusel-img');
+const carruselAnt = document.getElementById('carrusel-ant');
+const carruselSeg = document.getElementById('carrusel-seg');
+let imatgesActuals = [];
+let indexImatge = 0;
+
+// Funció per actualitzar la imatge visible
+function actualitzarCarrusel() {
+    carruselImg.src = imatgesActuals[indexImatge];
     
-    const imgPopup = document.getElementById('popup-img');
-    const titolPopup = document.getElementById('popup-titol');
-    const preuPopup = document.getElementById('popup-preu');
+    // Mostrem o amaguem les fletxes depenent de si hi ha més d'1 imatge
+    if (imatgesActuals.length > 1) {
+        carruselAnt.style.display = 'block';
+        carruselSeg.style.display = 'block';
+    } else {
+        carruselAnt.style.display = 'none';
+        carruselSeg.style.display = 'none';
+    }
+}
 
-    productes.forEach(producte => {
-        ['click', 'touchend'].forEach(evt => 
-            producte.addEventListener(evt, (e) => {
-                e.preventDefault(); 
-                
-                imgPopup.src = producte.src;
-                titolPopup.textContent = producte.getAttribute('data-nom');
-                preuPopup.textContent = producte.getAttribute('data-preu') + " €";
-                
-                const enllaçStripe = producte.getAttribute('data-stripe');
-                document.getElementById('boto-stripe').href = enllaçStripe;
-                
-                fonsPopup.classList.remove('ocult');
-            })
-        );
-    });
+// Clics a les fletxes
+carruselAnt.addEventListener('click', () => {
+    indexImatge = (indexImatge > 0) ? indexImatge - 1 : imatgesActuals.length - 1;
+    actualitzarCarrusel();
+});
 
-    botoTancar.addEventListener('click', () => {
-        fonsPopup.classList.add('ocult');
-    });
+carruselSeg.addEventListener('click', () => {
+    indexImatge = (indexImatge < imatgesActuals.length - 1) ? indexImatge + 1 : 0;
+    actualitzarCarrusel();
+});
 
-    fonsPopup.addEventListener('click', (e) => {
-        if (e.target === fonsPopup) {
-            fonsPopup.classList.add('ocult');
-        }
-    });
+// Quan cliquem un producte
+productes.forEach(producte => {
+  ['click', 'touchend'].forEach(evt => producte.addEventListener(evt, (e) => {
+    e.preventDefault();
+    
+    // 1. Preparar Carrussel
+    const imatgesString = producte.getAttribute('data-imatges-popup');
+    if (imatgesString) {
+        imatgesActuals = imatgesString.split(',').map(img => img.trim());
+    } else {
+        imatgesActuals = [producte.src]; // Si no hi ha popup, posa la mateixa enganxina
+    }
+    indexImatge = 0;
+    actualitzarCarrusel();
+    
+    // 2. Omplir Textos
+    titolPopup.textContent = producte.getAttribute('data-nom');
+    preuPopup.textContent = producte.getAttribute('data-preu') + " €";
+    descripcioPopup.innerHTML = producte.getAttribute('data-descripcio') || '';
+
+    // 3. Omplir Enllaç del botó de Comprar
+    const enllac = producte.getAttribute('data-stripe');
+    if (enllac) {
+        botoStripe.href = enllac;
+        botoStripe.style.display = 'inline-block'; // L'ensenyem
+    } else {
+        botoStripe.style.display = 'none'; // L'amaguem si no té link (opcional)
+    }
+    
+    fonsPopup.classList.remove('ocult');
+  }));
+});
+
+// Tancar popup
+botoTancar.addEventListener('click', () => { fonsPopup.classList.add('ocult'); });
+fonsPopup.addEventListener('click', (e) => { if (e.target === fonsPopup) fonsPopup.classList.add('ocult'); });
 
     // Forçar que l'scroll funcioni al mòbil dins del contingut
     document.querySelectorAll('.page-content').forEach(content => {
@@ -276,4 +318,22 @@ window.addEventListener('load', () => {
         afegirNotaALaPantalla(nota.nom, nota.missatge, nota.data);
       });
     });
+});
+
+// Variables pel Zoom
+const zoomOverlay = document.getElementById('zoom-overlay');
+const zoomImg = document.getElementById('zoom-img');
+const tancarZoom = document.getElementById('tancar-zoom');
+const imgPrincipalPopup = document.getElementById('carrusel-img');
+
+// Obrir zoom en clicar la imatge del carrusel
+imgPrincipalPopup.addEventListener('click', () => {
+    zoomImg.src = imgPrincipalPopup.src;
+    zoomOverlay.classList.remove('ocult');
+});
+
+// Tancar zoom (clicant la X o el fons negre)
+tancarZoom.addEventListener('click', () => zoomOverlay.classList.add('ocult'));
+zoomOverlay.addEventListener('click', (e) => {
+    if (e.target !== zoomImg) zoomOverlay.classList.add('ocult');
 });
