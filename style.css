@@ -746,7 +746,7 @@ h2 {
 #carrusel-img {
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.2));
 }
 
@@ -913,12 +913,10 @@ h2 {
 /* La pestanya grisa de dalt (com la de la teva foto) */
 .pestanya-superior {
   position: absolute;
-  bottom: 100%;          /* Es posiciona just a sobre de la vora superior */
-  left: -2px;            /* Alineat amb el borde de la imatge */
-  width: calc(100% + 4px); /* Ajustat per cobrir el gruix del borde */
-  height: 25px;          /* Alçada de la pestanya */
-  background-color: #e0e0e0; /* Gris clar com el de la teva referència */
-  border: 2px solid #000;    /* Linia negra */
+  bottom: 100%;          /* Es posiciona just a sobre de la vora superior */            /* Alineat amb el borde de la imatge */
+  width: 100%; /* Ajustat per cobrir el gruix del borde */
+  height: 15px;          /* Alçada de la pestanya */
+  background-color: hsl(0 0% 92% / 1); /* Gris clar com el de la teva referència */
   border-bottom: none;       /* Perquè sembli que surt de dins la imatge */
   border-radius: 15px 15px 0 0; /* Cantonades arrodonides només a dalt */
   box-sizing: border-box;
@@ -930,7 +928,6 @@ h2 {
   max-width: 100%;
   height: auto;
   display: block;
-  border: 2px solid #000;
   position: relative;
   z-index: 2;
 }
@@ -938,13 +935,13 @@ h2 {
 /* El mico Cloduy a la cantonada inferior esquerra */
 .mico-cloduy {
   position: absolute;
-  bottom: -10px;    /* Una mica per sota de la vora de la imatge */
-  left: -25px;      /* Una mica per l'esquerra perquè sobresurti */
-  width: 70px;      /* Mida del mico */
+  bottom: 98%;    /* Una mica per sota de la vora de la imatge */
+  left: 10px;      /* Una mica per l'esquerra perquè sobresurti */
+  width: 40px;      /* Mida del mico */
   height: auto;
   z-index: 10;      /* Per sobre de tot */
-  filter: drop-shadow(2px 2px 0px #000); /* Ombra opcional per estil sticker */
   pointer-events: none; /* Perquè no molesti al clicar la imatge */
+  filter: none !important;
 }
 
 /* Estil dels botons (assegura't que tinguin z-index alt) */
