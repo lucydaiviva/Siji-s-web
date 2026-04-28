@@ -14,7 +14,7 @@ body {
   height: 100vh;
   background-color: #ffffff; /* Color de fons d'escriptori */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url(assets/bk.png);
+  background-image: url(assets/bk.webp);
   overflow: hidden; /* Evita que tota la pàgina faci scroll */
 background-size: cover; /* Fa que ocupi tot l'espai */
   background-position: center; /* Manté el centre de la imatge al mig */
@@ -900,4 +900,54 @@ h2 {
 }
 .read-me-gifs img{
   max-width: 100px;
+}
+
+/* Contenidor que s'adapta a l'amplada de la imatge */
+.carrusel-imatge-wrapper {
+  position: relative;
+  display: inline-block; /* Això fa que el marc s'ajusti a l'amplada de la foto */
+  margin-top: 30px;      /* Espai per a la pestanya que sobresurt */
+  line-height: 0;        /* Treu espais extra sota la imatge */
+}
+
+/* La pestanya grisa de dalt (com la de la teva foto) */
+.pestanya-superior {
+  position: absolute;
+  bottom: 100%;          /* Es posiciona just a sobre de la vora superior */
+  left: -2px;            /* Alineat amb el borde de la imatge */
+  width: calc(100% + 4px); /* Ajustat per cobrir el gruix del borde */
+  height: 25px;          /* Alçada de la pestanya */
+  background-color: #e0e0e0; /* Gris clar com el de la teva referència */
+  border: 2px solid #000;    /* Linia negra */
+  border-bottom: none;       /* Perquè sembli que surt de dins la imatge */
+  border-radius: 15px 15px 0 0; /* Cantonades arrodonides només a dalt */
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+/* La imatge amb la seva vora negra */
+#carrusel-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid #000;
+  position: relative;
+  z-index: 2;
+}
+
+/* El mico Cloduy a la cantonada inferior esquerra */
+.mico-cloduy {
+  position: absolute;
+  bottom: -10px;    /* Una mica per sota de la vora de la imatge */
+  left: -25px;      /* Una mica per l'esquerra perquè sobresurti */
+  width: 70px;      /* Mida del mico */
+  height: auto;
+  z-index: 10;      /* Per sobre de tot */
+  filter: drop-shadow(2px 2px 0px #000); /* Ombra opcional per estil sticker */
+  pointer-events: none; /* Perquè no molesti al clicar la imatge */
+}
+
+/* Estil dels botons (assegura't que tinguin z-index alt) */
+.carrusel-btn {
+  z-index: 20;
 }
