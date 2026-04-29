@@ -302,7 +302,8 @@ h2 {
   position: relative;
   max-height: 90vh; /* Evita que el popup sigui més alt que el 90% de la pantalla */
   overflow-y: auto; /* Activa l'scroll vertical si el contingut sobresurt */
-    padding-top: 60px;
+    padding-top: 100px;
+    padding-bottom: 100px;
 
 }
 
