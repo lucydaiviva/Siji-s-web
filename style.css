@@ -19,31 +19,9 @@ body {
 background-size: cover; /* Fa que ocupi tot l'espai */
   background-position: center; /* Manté el centre de la imatge al mig */
   background-repeat: no-repeat; /* Evita que la imatge es repeteixi */
-animation: cameraHandheld 12s infinite ease-in-out;
 position: relative;
 }
 
-@keyframes cameraHandheld {
-  0% {
-    /* Fem un petit zoom (scale 1.03) perquè en moure's no es vegin vores blanques */
-    transform: scale(1.04) translate(0px, 0px) rotate(0deg);
-  }
-  20% {
-    transform: scale(1.04) translate(-2px, 3px) rotate(-0.2deg);
-  }
-  40% {
-    transform: scale(1.04) translate(-1px, -2px) rotate(0.1deg);
-  }
-  60% {
-    transform: scale(1.04) translate(3px, 1px) rotate(0.2deg);
-  }
-  80% {
-    transform: scale(1.04) translate(1px, -3px) rotate(-0.1deg);
-  }
-  100% {
-    transform: scale(1.04) translate(0px, 0px) rotate(0deg);
-  }
-}
 
 @media (max-width: 768px) {
   body {
@@ -322,7 +300,12 @@ h2 {
   max-width: 700px;
   padding: 20px;
   position: relative;
+  max-height: 90vh; /* Evita que el popup sigui més alt que el 90% de la pantalla */
+  overflow-y: auto; /* Activa l'scroll vertical si el contingut sobresurt */
+    padding-top: 60px;
+
 }
+
 
 #tancar-popup {
   position: absolute;
@@ -926,25 +909,71 @@ h2 {
 /* La imatge amb la seva vora negra */
 #carrusel-img {
   max-width: 100%;
+  width: auto !important; /* Molt important: treu el 100% per defecte i abraça els píxels reals */
   height: auto;
   display: block;
   position: relative;
   z-index: 2;
+  max-height: 50vh; 
+  /* Eliminem l'object-fit: contain perquè ja no ens fa falta */
 }
 
-/* El mico Cloduy a la cantonada inferior esquerra */
+/* 2. Fixem el mico perquè quedi sempre grapat a la vora de la imatge */
 .mico-cloduy {
   position: absolute;
-  bottom: 98%;    /* Una mica per sota de la vora de la imatge */
-  left: 10px;      /* Una mica per l'esquerra perquè sobresurti */
-  width: 40px;      /* Mida del mico */
+  /* Eliminem el bottom: 98% i ho mesurem en píxels exactes des de dalt */
+  top: -78px;    /* -15px el fa sobresortir una mica per dalt. Si el vols ben bé a dins, posa 0 o 5px */
+  left: 10px;    /* També ajustat amb píxels per l'esquerra */
+  
+  width: 20px;
   height: auto;
-  z-index: 10;      /* Per sobre de tot */
-  pointer-events: none; /* Perquè no molesti al clicar la imatge */
+  z-index: 1000;
+  pointer-events: none;
   filter: none !important;
 }
 
 /* Estil dels botons (assegura't que tinguin z-index alt) */
 .carrusel-btn {
   z-index: 20;
+}
+
+body, * {
+    cursor: none !important; 
+}
+
+/* 2. L'estil del teu cursor animat */
+#cursor-animat {
+    position: fixed; /* Fixat a la pantalla */
+    top: 0;          /* T'assegures que l'origen és 0,0 abans que el JS actuï */
+    left: 0;
+    pointer-events: none; /* CRUCIAL: Evita que el GIF bloquegi els clics als enllaços */
+    z-index: 999999; /* Li posem tants 9 com puguem per assegurar-nos que sempre està a dalt de tot */
+    width: 32px; /* Ajusta la mida del teu GIF (prova de fer-lo més gran o petit aquí si cal) */
+    
+    /* ELIMINA el transform per sencer perquè la punta (superior esquerra del GIF)
+       coincideixi exactament amb el teu clic real */
+    transform: none; 
+}
+
+#camera-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(assets/bk.webp);
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  
+  /* Aquí apliquem la teva animació! */
+  animation: cameraHandheld 12s infinite ease-in-out;
+  position: relative;
+}
+
+/* LA TEVA ANIMACIÓ ES QUEDA IGUAL */
+@keyframes cameraHandheld {
+  0% { transform: scale(1.04) translate(0px, 0px) rotate(0deg); }
+  20% { transform: scale(1.04) translate(-2px, 3px) rotate(-0.2deg); }
+  40% { transform: scale(1.04) translate(-1px, -2px) rotate(0.1deg); }
+  60% { transform: scale(1.04) translate(3px, 1px) rotate(0.2deg); }
+  80% { transform: scale(1.04) translate(1px, -3px) rotate(-0.1deg); }
+  100% { transform: scale(1.04) translate(0px, 0px) rotate(0deg); }
 }

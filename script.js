@@ -337,3 +337,32 @@ tancarZoom.addEventListener('click', () => zoomOverlay.classList.add('ocult'));
 zoomOverlay.addEventListener('click', (e) => {
     if (e.target !== zoomImg) zoomOverlay.classList.add('ocult');
 });
+
+// 1. Seleccionem el nostre cursor
+const cursorAnimat = document.getElementById('cursor-animat');
+
+// 2. Definim les rutes a les nostres imatges (ACTUALITZA-LES AMB LES TEVES RUTES REALS)
+const gifNormal = 'assets/cursor.gif'; // El cursor per defecte
+const gifEnllac = 'assets/cursor-select.gif'; // El cursor per quan es pot fer clic
+
+// 3. Fem que persegueixi el ratolí
+document.addEventListener('mousemove', function(e) {
+    cursorAnimat.style.left = (e.clientX + 0) + 'px';
+    cursorAnimat.style.top = (e.clientY + 0) + 'px';
+});
+
+// 4. Seleccionem tot allò on es pot fer clic (enllaços i botons)
+const elementsClicables = document.querySelectorAll('a, button');
+
+// 5. Afegim l'efecte de canvi a cada element clicable
+elementsClicables.forEach(element => {
+    // Quan el ratolí entra a l'enllaç, canviem la imatge
+    element.addEventListener('mouseenter', () => {
+        cursorAnimat.src = gifEnllac;
+    });
+    
+    // Quan el ratolí surt de l'enllaç, tornem a la imatge normal
+    element.addEventListener('mouseleave', () => {
+        cursorAnimat.src = gifNormal;
+    });
+});
