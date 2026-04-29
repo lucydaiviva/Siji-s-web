@@ -281,13 +281,18 @@ h2 {
 #fons-popup {
   position: fixed;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100%; 
+  /* 100dvh respecta les barres de Chrome/Safari al mòbil */
+  height: 100dvh; 
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 9999; /* Per sobre de tot */
+  z-index: 9999; 
   display: flex;
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(5px);
+  /* Afegim espai a dalt i a baix perquè el quadre no toqui mai les vores */
+  padding: 40px 0; 
+  box-sizing: border-box; 
 }
 
 #fons-popup.ocult {
@@ -295,17 +300,18 @@ h2 {
 }
 
 .finestra-popup {
-  
   width: 90%;
   max-width: 700px;
   padding: 20px;
   position: relative;
-  max-height: 90vh; /* Evita que el popup sigui més alt que el 90% de la pantalla */
-  overflow-y: auto; /* Activa l'scroll vertical si el contingut sobresurt */
-    padding-top: 60px;
-    margin-top: 100px;
-    margin-bottom: 100px;
-
+  /* Limitem l'alçada màxima al 100% de l'espai disponible */
+  max-height: 100%; 
+  overflow-y: auto; 
+  /* Donem espai a dalt perquè el mico no quedi tallat pel propi scroll */
+  padding-top: 40px; 
+  /* Fora els marges que trencaven la pantalla */
+  margin-top: 0;    
+  margin-bottom: 0; 
 }
 
 
@@ -923,10 +929,11 @@ h2 {
 /* 2. Fixem el mico perquè quedi sempre grapat a la vora de la imatge */
 .mico-cloduy {
   position: absolute;
-  /* Eliminem el bottom: 98% i ho mesurem en píxels exactes des de dalt */
-  top: -78px;    /* -15px el fa sobresortir una mica per dalt. Si el vols ben bé a dins, posa 0 o 5px */
-  left: 10px;    /* També ajustat amb píxels per l'esquerra */
-  
+  /* Canviem 'top' per 'bottom' perquè s'ancori a la part superior de la imatge */
+  bottom: 100%;  
+  /* Si vols que baixi una miqueta per sobreposar-se a la pestanya grisa, utilitza margin-bottom */
+  margin-bottom: -5px; 
+  left: 10px;    
   width: 20px;
   height: auto;
   z-index: 1000;
