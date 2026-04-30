@@ -55,7 +55,8 @@ function ajustarEscalaEscriptori() {
     botons[0].onclick = () => animarAPagina(0); // Portada
     botons[1].onclick = () => animarAPagina(2); // Monomonitos
     botons[2].onclick = () => animarAPagina(4); // Portfoli
-    botons[3].onclick = () => animarAPagina(5); // CV
+    botons[3].onclick = () => animarAPagina(5); // Galeria
+    botons[4].onclick = () => animarAPagina(6); // CV
 
     // --- Lògica del clic al Post-it ---
 const postitLink = document.getElementById('postit-link');
@@ -72,8 +73,9 @@ if (postitLink) {
         2: { text: "Monomonitos Shop", classe: "seccio-shop" },
         3: { text: "Monomonitos Shop 2", classe: "seccio-shop" },
         4: { text: "Portfolio", classe: "seccio-portfolio" },
-        5: { text: "CV", classe: "seccio-cv" },
-        6: { text: "Guest Book", classe: "seccio-guestbook" }
+        5: { text: "Galeria", classe: "seccio-galeria" },
+        6: { text: "CV", classe: "seccio-cv" },
+        7: { text: "Guest Book", classe: "seccio-guestbook" }
     };
 
     function actualitzarPeu(numPagina) {
@@ -88,7 +90,7 @@ if (postitLink) {
 
         // Gestió de visibilitat de fletxes
         document.getElementById('btn-ant').style.visibility = (numPagina === 0) ? "hidden" : "visible";
-        document.getElementById('btn-seg').style.visibility = (numPagina === 6) ? "hidden" : "visible"; // ATENCIÓ: canviat a 4 per l'última pàgina
+        document.getElementById('btn-seg').style.visibility = (numPagina === 7) ? "hidden" : "visible"; // ATENCIÓ: canviat a 4 per l'última pàgina
     }
 
     // Controls de les fletxes
@@ -320,22 +322,111 @@ window.addEventListener('load', () => {
     });
 });
 
-// Variables pel Zoom
+/* =========================================
+   LÒGICA DEL ZOOM (GALERIA I BOTIGA)
+   ========================================= */
 const zoomOverlay = document.getElementById('zoom-overlay');
 const zoomImg = document.getElementById('zoom-img');
 const tancarZoom = document.getElementById('tancar-zoom');
 const imgPrincipalPopup = document.getElementById('carrusel-img');
 
-// Obrir zoom en clicar la imatge del carrusel
+// Noves fletxes
+const zoomAnt = document.getElementById('zoom-ant');
+const zoomSeg = document.getElementById('zoom-seg');
+
+let imatgesZoom = [];
+let indexZoom = 0;
+
+// Funció per actualitzar la imatge gran i mostrar/amagar fletxes
+function actualitzarZoom() {
+    zoomImg.src = imatgesZoom[indexZoom];
+    
+    if (imatgesZoom.length > 1) {
+        zoomAnt.style.display = 'flex';
+        zoomSeg.style.display = 'flex';
+    } else {
+        zoomAnt.style.display = 'none';
+        zoomSeg.style.display = 'none';
+    }
+}
+
+// Clic a les fletxes del Zoom
+zoomAnt.addEventListener('click', (e) => {
+    e.stopPropagation(); // Evita que es tanqui el fons fosc en clicar la fletxa
+    indexZoom = (indexZoom > 0) ? indexZoom - 1 : imatgesZoom.length - 1;
+    actualitzarZoom();
+});
+
+zoomSeg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    indexZoom = (indexZoom < imatgesZoom.length - 1) ? indexZoom + 1 : 0;
+    actualitzarZoom();
+});
+
+// 1. OBRIR ZOOM DES DE LA GALERIA
+// 1. LÒGICA DEL CARRUSEL INLINE I OBRIR ZOOM DES DE LA GALERIA
+const carruselsInline = document.querySelectorAll('.galeria-inline-wrapper');
+
+carruselsInline.forEach(wrapper => {
+    const img = wrapper.querySelector('.img-galeria');
+    const btnAnt = wrapper.querySelector('.inline-ant');
+    const btnSeg = wrapper.querySelector('.inline-seg');
+    
+    // Llegim les fotos
+    const dadesImatges = img.getAttribute('data-imatges');
+    let llistaImatges = dadesImatges ? dadesImatges.split(',').map(i => i.trim()) : [img.src];
+    let indexActual = 0;
+
+    // Si només hi ha 1 foto (o cap extres), amaguem les fletxes integrades
+    if (llistaImatges.length <= 1) {
+        btnAnt.style.display = 'none';
+        btnSeg.style.display = 'none';
+    }
+
+    // Funció per canviar la foto de dins la llibreta
+    function canviarFotoInline(nouIndex) {
+        indexActual = nouIndex;
+        img.src = llistaImatges[indexActual];
+    }
+
+    // Clics a les fletxes de la llibreta
+    btnAnt.addEventListener('click', (e) => {
+        e.stopPropagation(); // Evita clics per error a la imatge
+        let nouIndex = (indexActual > 0) ? indexActual - 1 : llistaImatges.length - 1;
+        canviarFotoInline(nouIndex);
+    });
+
+    btnSeg.addEventListener('click', (e) => {
+        e.stopPropagation(); 
+        let nouIndex = (indexActual < llistaImatges.length - 1) ? indexActual + 1 : 0;
+        canviarFotoInline(nouIndex);
+    });
+
+    // Clic a la imatge per obrir el ZOOM (a pantalla completa)
+    img.addEventListener('click', () => {
+        imatgesZoom = [...llistaImatges]; // Li passem tota la llista al zoom
+        indexZoom = indexActual;          // Li diem al zoom que comenci per la foto que estàvem mirant
+        actualitzarZoom();
+        zoomOverlay.classList.remove('ocult');
+    });
+});
+
+// 2. OBRIR ZOOM DES DE LA BOTIGA (Monomonitos)
 imgPrincipalPopup.addEventListener('click', () => {
-    zoomImg.src = imgPrincipalPopup.src;
+    // Aprofitem la llista d'imatges que ja té el popup de la botiga
+    imatgesZoom = [...imatgesActuals];
+    indexZoom = indexImatge; // Obrim directament la que estàvem mirant
+    actualitzarZoom();
     zoomOverlay.classList.remove('ocult');
 });
 
-// Tancar zoom (clicant la X o el fons negre)
+// Tancar zoom
 tancarZoom.addEventListener('click', () => zoomOverlay.classList.add('ocult'));
 zoomOverlay.addEventListener('click', (e) => {
-    if (e.target !== zoomImg) zoomOverlay.classList.add('ocult');
+    // Si cliquem al fons fosc (no a la foto ni a les fletxes), es tanca
+    if (e.target === zoomOverlay) {
+        zoomOverlay.classList.add('ocult');
+    }
 });
 
 // 1. Seleccionem el nostre cursor

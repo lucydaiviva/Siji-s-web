@@ -6,6 +6,10 @@
   font-family: gap-black;
   src: url(assets/gapsansblack-webfont.woff2);
 }
+@font-face {
+  font-family: nintendo;
+  src: url(assets/FOT-RodinBokutoh.otf);
+}
 
 /* Estils generals per centrar la llibreta a la pantalla */
 body {
@@ -13,7 +17,7 @@ body {
   
   height: 100vh;
   background-color: #ffffff; /* Color de fons d'escriptori */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'gap', Tahoma, Geneva, Verdana, sans-serif;
   background-image: url(assets/bk.webp);
   overflow: hidden; /* Evita que tota la pàgina faci scroll */
 background-size: cover; /* Fa que ocupi tot l'espai */
@@ -69,7 +73,7 @@ position: relative;
 }
 
 .tab {
-  background-color: #f4f9b1;
+  background-color: #f5f9b1;
   border: 2px none #333;
   border-bottom: none;
   border-radius: 2px 2px 0 0;
@@ -84,11 +88,15 @@ position: relative;
 }
 
 #monomonitos-tab {
-  background-color: #e2ffba;
+  background-color: #cfffd8;
 }
 
 #portfoli-tab {
-  background-color: #bcfdff;
+  background-color: #bcf6ff;
+}
+
+#galeria-tab {
+   background-color: #e7d4ff;
 }
 
 #cv-tab {
@@ -134,17 +142,11 @@ position: relative;
 .cv { background-color: #ffffff; }
 
 .Portfoli {
-  /* Substitueix 'la-teva-imatge.jpg' pel nom real de l'arxiu que tinguis a la carpeta assets */
-  background-image: url('assets/fondo-shop-blau.png'); 
-  
-  /* Aquestes tres línies són la clau perquè ocupi tota la pàgina bé */
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat;
-  
   /* Mantenim un color de fons per si la imatge triga a carregar */
   background-color: #ffffff; 
+  color: #4474a8;
 }
+
 .portada {
   padding: 0; /* Traiem l'espai interior perquè la imatge toqui les vores */
   overflow: hidden; /* Això és clau: talla la imatge perquè respecti les cantonades arrodonides (border-radius) del contenidor */
@@ -152,7 +154,7 @@ position: relative;
 
 .Monomonitos {
   /* Substitueix 'la-teva-imatge.jpg' pel nom real de l'arxiu que tinguis a la carpeta assets */
-  background-image: url('assets/shop-bk.png'); 
+  background-image: url('assets/fondo-verd.webp'); 
   
   /* Aquestes tres línies són la clau perquè ocupi tota la pàgina bé */
   background-size: cover; 
@@ -162,6 +164,26 @@ position: relative;
   /* Mantenim un color de fons per si la imatge triga a carregar */
   background-color: #ffffff; 
 }
+
+.Galeria {
+  
+  /* Mantenim un color de fons per si la imatge triga a carregar */
+  background-color: #ffffff; 
+}
+
+.CV {
+   /* Substitueix 'la-teva-imatge.jpg' pel nom real de l'arxiu que tinguis a la carpeta assets */
+  background-image: url('assets/fondo-rosa.webp'); 
+  
+  /* Aquestes tres línies són la clau perquè ocupi tota la pàgina bé */
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  
+  /* Mantenim un color de fons per si la imatge triga a carregar */
+  background-color: #ffffff; 
+}
+
 .read-me {
   background-image: url('assets/WhatsApp Image 2026-04-21 at 10.13.42.jpeg');
     background-size: cover; 
@@ -249,17 +271,20 @@ h2 {
   font-family: 'gap-black', sans-serif;
   color: #333;
 }
-
+ 
 .aparador {
   display: flex;
   flex-wrap: wrap;       /* Si no hi caben, salten a la línia de sota */
   justify-content: space-evenly; /* Espaiat automàtic */
   gap: 15px;
   margin-top: 20px;
+  align-items: center;
 }
 
+
 .enganxina {
-  width: 25%;            /* Ocupen un 40% de la pàgina, així escalen soles */
+  width: 28%;            /* Ocupen un 40% de la pàgina, així escalen soles */
+  height: auto;
   cursor: pointer;
   filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.3)); /* Ombra d'enganxina */
   transition: transform 0.2s ease;
@@ -411,6 +436,20 @@ h2 {
   -webkit-overflow-scrolling: touch; /* Fa que l'scroll sigui suau al mòbil */
 }
 
+.fondo-marc{
+  width: 100%;
+  
+  /* 1. Apliquem 50px de padding a la Dreta, Baix i Esquerra (i 0 a dalt) */
+  padding: 50px 45px 55px 45px; 
+  
+
+}
+
+.padding {
+  padding: 50px;
+  overflow-y: auto; 
+}
+
 /* El contenidor del peu de pàgina */
 .peu-pagina {
   position: absolute;
@@ -513,12 +552,22 @@ h2 {
 .seccio-shop img { filter: hue-rotate(0deg); }
 
 /* Portfolio: Blau (rotem el verd uns 160 graus cap al blau) */
-.seccio-portfolio #etiqueta-pagina { color: #3498db; }
-.seccio-portfolio img { filter: hue-rotate(160deg); }
+.seccio-portfolio #etiqueta-pagina { color: #86b3ff; }
+.seccio-portfolio img { filter: hue-rotate(100deg); }
 
 /* CV: Violeta (rotem uns 240 graus) */
-.seccio-cv #etiqueta-pagina { color: #9b59b6; }
-.seccio-cv img { filter: hue-rotate(240deg); }
+.seccio-galeria #etiqueta-pagina { color: #b589df; }
+.seccio-galeria img { filter: hue-rotate(150deg); }
+.peu-navegacio {
+  position: relative;
+  z-index: 10; /* Per sobre de qualsevol ombra de la llibreta */
+  margin-top: 30px;
+  pointer-events: all; /* Força que els clics passin */
+}
+
+/* CV: Violeta (rotem uns 240 graus) */
+.seccio-cv #etiqueta-pagina { color: #ff97d9; }
+.seccio-cv img { filter: hue-rotate(200deg); }
 .peu-navegacio {
   position: relative;
   z-index: 10; /* Per sobre de qualsevol ombra de la llibreta */
@@ -737,7 +786,7 @@ h2 {
 #carrusel-img {
     width: 100%;
     height: auto;
-    border-radius: 0 0 5px 5px;
+    border-radius: 15px;
     filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.2));
 }
 
@@ -784,7 +833,7 @@ h2 {
     text-decoration: none;
     font-family: 'gap-black', sans-serif;
     font-size: 1rem;
-    border-radius: 5px;
+    border-radius: 15px;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
@@ -926,21 +975,6 @@ h2 {
   /* Eliminem l'object-fit: contain perquè ja no ens fa falta */
 }
 
-/* 2. Fixem el mico perquè quedi sempre grapat a la vora de la imatge */
-.mico-cloduy {
-  position: absolute;
-  /* Canviem 'top' per 'bottom' perquè s'ancori a la part superior de la imatge */
-  bottom: 100%;  
-  /* Si vols que baixi una miqueta per sobreposar-se a la pestanya grisa, utilitza margin-bottom */
-  margin-bottom: -5px; 
-  left: 10px;    
-  width: 20px;
-  height: auto;
-  z-index: 1000;
-  pointer-events: none;
-  filter: none !important;
-}
-
 /* Estil dels botons (assegura't que tinguin z-index alt) */
 .carrusel-btn {
   z-index: 20;
@@ -985,4 +1019,79 @@ body, * {
   60% { transform: scale(1.04) translate(3px, 1px) rotate(0.2deg); }
   80% { transform: scale(1.04) translate(1px, -3px) rotate(-0.1deg); }
   100% { transform: scale(1.04) translate(0px, 0px) rotate(0deg); }
+}
+
+.img-galeria {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.img-galeria {
+  width: 100%;
+  border-radius: 15px;
+  cursor: zoom-in; /* Indica que es pot fer gran */
+  transition: transform 0.2s ease;
+  filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.3)); /* Una ombra bonica */
+}
+
+.img-galeria:hover {
+  transform: scale(1.02); /* Petit efecte al passar el ratolí */
+}
+
+.zoom-fletxa {
+  position: absolute;
+  z-index: 10000;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  /* Centrem el símbol interior */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- ESTILS PEL CARRUSEL INTEGRAT A LA PÀGINA GALERIA --- */
+.galeria-inline-wrapper {
+  position: relative;
+  display: block; 
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.galeria-inline-wrapper .img-galeria {
+  width: 100%;
+  display: block;
+  /* (Els estils d'ombra i cantonades que ja tens s'aplicaran automàticament) */
+}
+
+/* Fletxes de dins la llibreta */
+.inline-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 32px; /* Una mica més petites que les del zoom */
+  height: 32px;
+  font-size: 1rem;
+}
+
+.inline-ant { left: 5px; }
+.inline-seg { right: 5px; }
+
+.Galeria h3 {
+   font-family: gap; 
+   font-size: 1rem; 
+   margin-bottom: 5px;
+}
+
+.fondo-cubre {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Si veus que el marc no quadra amb els marges, pots canviar això per: object-fit: fill; */
+  z-index: 100; /* Valor alt perquè estigui literalment per sobre del text i les fotos */
+  pointer-events: none; /* CRUCIAL: Deixa "passar" els clics a través de la imatge per poder tocar les fletxes i fer scroll */
+  display: block;
 }

@@ -18,6 +18,9 @@
       <img src="assets/monomonitos.webp" alt="Monomonitos" class="icona-tab">
   </button>
   <button class="tab" id="portfoli-tab">Portfolio</button>
+   <button class="tab" id="galeria-tab">
+      <img src="assets/icon-galeria.png" alt="Portada" class="icona-tab" id="icon-galeria" style="width: 20px; margin-bottom: -1px;">
+  </button>
   <button class="tab" id="cv-tab">CV</button>
   <div style="width: 15px;" id="tab-transparent"></div>
 </nav>
@@ -25,6 +28,8 @@
     <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
 
 <div class="llibreta" id="llibreta-interactiva">
+
+
 
   
 
@@ -59,7 +64,7 @@
      data-imatges-popup="assets/caramelo0.webp"
      data-descripcio="size_45 x 30 cm<br>Earthware vase with low temperature glossy colored glazes."
      data-stripe="https://buy.stripe.com/teu_enllaç_1">
-        <img src="assets/2.webp" class="enganxina" style="width: 60px;"
+        <img src="assets/2.webp" class="enganxina" style="width: 90px;"
      data-nom="Vase pumpkin" 
      data-preu="90" 
      data-imatges-popup="assets/pumpkin.webp, assets/pumpkin2.webp, assets/pumpkin3.webp"
@@ -89,7 +94,8 @@
 
 
   <div class="pagina Portfoli">
-    <div class="page-content">
+         <img src="assets/fondo-blau.webp" alt="" class="fondo-cubre">
+    <div class="page-content fondo-marc">
       <h2>Portfolio</h2>
       <img style="width: 40%;"src="assets/WhatsApp Image 2026-04-21 at 10.12.20.jpeg">
       <img style="width: 40%;" src="assets/WhatsApp Image 2026-04-21 at 10.12.39.jpeg">
@@ -123,6 +129,38 @@ Aliquam sodales nec lacus vitae auctor. Vivamus blandit mauris est, at ultrices 
     </div>
   </div>
 
+
+<div class="pagina Galeria ">
+     <img src="assets/fondo-lila.webp" alt="" class="fondo-cubre">
+  <div class="page-content fondo-marc">
+    <!-- ESDEVENIMENT 1 -->
+    <h3>Exposició a Amsterdam</h3>
+    <div class="galeria-inline-wrapper">
+      <button class="carrusel-btn inline-btn inline-ant">&#10094;</button>
+      <img src="assets/galeria-1.webp" alt="Exposició" class="img-galeria" 
+           data-imatges="assets/galeria-1.webp, assets/galeria-2.jpg, assets/galeria-3.jpg">
+      <button class="carrusel-btn inline-btn inline-seg">&#10095;</button>
+    </div>
+
+    <!-- ESDEVENIMENT 2 -->
+    <h3>Taller de Ceràmica</h3>
+    <div class="galeria-inline-wrapper">
+      <button class="carrusel-btn inline-btn inline-ant">&#10094;</button>
+      <img src="assets/galeria-4.jpg" alt="Taller" class="img-galeria" 
+           data-imatges="assets/galeria-4.webp">
+      <button class="carrusel-btn inline-btn inline-seg">&#10095;</button>
+    </div>
+
+        <h3>Taller de Ceràmica</h3>
+    <div class="galeria-inline-wrapper">
+      <button class="carrusel-btn inline-btn inline-ant">&#10094;</button>
+      <img src="assets/galeria-4.jpg" alt="Taller" class="img-galeria" 
+           data-imatges="assets/galeria-4.webp">
+      <button class="carrusel-btn inline-btn inline-seg">&#10095;</button>
+    </div>
+         
+  </div>
+</div>
 
   <div class="pagina CV">
     <div class="page-content contingut-cv">
@@ -213,9 +251,14 @@ Aliquam sodales nec lacus vitae auctor. Vivamus blandit mauris est, at ultrices 
 </div>
 </div>
   
+<!-- Al final del teu HTML, substitueix el teu antic #zoom-overlay per aquest: -->
 <div id="zoom-overlay" class="ocult">
   <button id="tancar-zoom">&times;</button>
+  
+  <!-- Noves fletxes pel zoom -->
+  <button id="zoom-ant" class="carrusel-btn zoom-fletxa" style="left: 20px;">&#10094;</button>
   <img id="zoom-img" src="" alt="Zoom producte">
+  <button id="zoom-seg" class="carrusel-btn zoom-fletxa" style="right: 20px;">&#10095;</button>
 </div>
 <img src="assets/cursor.gif" id="cursor-animat" alt="Cursor animat">
   <script src="script.js"></script>
