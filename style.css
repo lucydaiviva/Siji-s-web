@@ -1096,3 +1096,167 @@ body, * {
   pointer-events: none; /* CRUCIAL: Deixa "passar" els clics a través de la imatge per poder tocar les fletxes i fer scroll */
   display: block;
 }
+
+/* =========================================
+   NOU POPUP "CROMO / POLAROID" (Adaptat a mòbil)
+   ========================================= */
+
+/* Fem que el fons fosc tingui una mica més de blur */
+#fons-popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; 
+  height: 100dvh; 
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px); /* Blur més fort per donar protagonisme al producte */
+  z-index: 9999; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Menys padding al mòbil perquè el quadre aprofiti l'espai */
+  box-sizing: border-box; 
+}
+
+/* El contenidor principal tipus cromo/targeta */
+.finestra-popup {
+  width: 100%;
+  max-width: 450px; /* Més estret per fer efecte targeta */
+  background-color: #ffffff;
+  border: 3px solid #000000; /* Vora gruixuda rotllo còmic/Y2K */
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  max-height: 85dvh; /* Limitem a un 85% de la pantalla del mòbil */
+  overflow-y: auto; 
+  overflow-x: hidden;
+  box-shadow: 6px 6px 0px rgba(0,0,0,1); /* Ombra dura! */
+  margin: 0;
+}
+
+/* Botó de tancar estètica adhesiu / pin */
+#tancar-popup {
+  position: absolute;
+  top: -10px; 
+  right: -5px;
+  width: 40px;
+  height: 40px;
+  background-color: #ff97d9; /* Rosa del teu disseny */
+  border: 3px solid #000000;
+  border-radius: 50%;
+  font-family: 'gap-black', sans-serif;
+  font-size: 1.5rem;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px 0px rgba(0,0,0,1);
+  transition: transform 0.2s;
+  z-index: 100; /* Sempre per sobre */
+}
+
+#tancar-popup:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px rgba(0,0,0,1);
+}
+
+.popup-contingut {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Ajustem la imatge perquè no empenyi el botó cap avall al mòbil */
+.popup-esquerra img {
+  width: auto;
+  max-width: 100%;
+  max-height: 30vh; /* CLAU PEL MÒBIL: La foto mai ocuparà més d'un terç de la pantalla */
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.15));
+}
+
+.popup-dreta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center; /* Centrem el text al mòbil */
+}
+
+#popup-titol { 
+  margin: 0; 
+  font-family: 'gap-black', sans-serif; 
+  color: #000000; /* Lletra negra per contrastar amb la targeta blanca */
+  font-size: 1.4rem; 
+}
+
+#popup-preu { 
+  margin: 0; 
+  font-size: 1.3rem; 
+  font-family: 'gap-black', sans-serif;
+  color: #ff00d9; /* Toc de color lila fosc / magenta */
+}
+
+.popup-taxa {
+  color: #666; /* Gris en lloc de blanc, ja que el fons ara és blanc */
+}
+
+/* Caixa de descripció rotllo "post-it" o nota */
+#popup-descripcio {
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-top: 10px;
+  font-family: inherit;
+  background-color: #f5f9b1; /* El groguet de les pestanyes */
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px dashed #000;
+  text-align: left; /* La descripció millor alineada a l'esquerra per llegibilitat */
+}
+
+/* Botó de comprar rotllo "retro" */
+.boto-comprar {
+  display: block; /* Ocupa tota l'amplada al mòbil */
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 20px;
+  background-color: #cfffd8; /* El verd de Monomonitos */
+  color: #000;
+  text-decoration: none;
+  font-family: 'gap-black', sans-serif;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  border: 3px solid #000;
+  transition: all 0.2s;
+  box-shadow: 4px 4px 0px rgba(0,0,0,1);
+  box-sizing: border-box;
+}
+
+.boto-comprar:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px rgba(0,0,0,1);
+}
+
+.boto-comprar:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px rgba(0,0,0,1);
+}
+
+/* Adaptació a pantalles grans (Escriptori) */
+@media (min-width: 768px) {
+  .finestra-popup {
+    max-width: 700px; /* Tornem a fer-ho ample */
+  }
+  .popup-contingut {
+    flex-direction: row; /* Imatge esquerra, text dreta */
+    align-items: center;
+  }
+  .popup-esquerra img {
+    max-height: 45vh; /* A l'escriptori la imatge pot ser més gran */
+  }
+  .popup-dreta {
+    text-align: left; /* Tornem a alinear a l'esquerra */
+  }
+}
