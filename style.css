@@ -10,6 +10,19 @@
   font-family: nintendo;
   src: url(assets/FOT-RodinBokutoh.otf);
 }
+@font-face {
+  font-family: AP-l;
+  src: url(assets/Arista-Pro-Light-trial.ttf);
+}
+@font-face {
+  font-family: AP-b;
+  src: url(assets/Arista-Pro-Bold-trial.ttf);
+}
+@font-face {
+  font-family: AP-f;
+  src: url(assets/Arista-Pro-Fat-trial.ttf);
+}
+
 
 /* Estils generals per centrar la llibreta a la pantalla */
 body {
@@ -17,7 +30,7 @@ body {
   
   height: 100vh;
   background-color: #ffffff; /* Color de fons d'escriptori */
-  font-family: 'gap', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'AP-l', Tahoma, Geneva, Verdana, sans-serif;
   background-image: url(assets/bk.webp);
   overflow: hidden; /* Evita que tota la pàgina faci scroll */
 background-size: cover; /* Fa que ocupi tot l'espai */
@@ -73,10 +86,12 @@ position: relative;
 }
 
 .tab {
+  position: relative;
   background-color: #f5f9b1;
+  background: linear-gradient(180deg, #f5f9b1 30%, #ffc369 100%);
   border: 2px none #333;
   border-bottom: none;
-  border-radius: 2px 2px 0 0;
+  border-radius: 5px 5px 0 0;
   cursor: pointer;
   font-weight: bold;
   box-shadow: 2px -2px 5px rgba(0,0,0,0.1);
@@ -86,21 +101,55 @@ position: relative;
   font-family: gap, sans-serif;
   color: #000000;
 }
+/* El pseudo-element per a la capa de brillantor (highlight) a la meitat superior */
+.tab::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45%; /* Menys de la meitat per a un efecte més fi */
+    margin: 3px 2px 0 2px;
+    background: linear-gradient(180deg, #ffffff 0%, #ff00cc00 100%); /* Una capa blanca semi-transparent */
+    border-radius: 5px 5px 0 0; /* Arrodonit només a dalt */
+    pointer-events: none; /* Evita que la brillantor s'intercepti amb els clicks */
+}
+
+.tab.activa {
+    /* El mateix desplaçament cap amunt que fas a l'hover */
+    transform: translateY(-4px); 
+    
+    /* Opcional, però recomanat: donar-li més z-index perquè passi 
+       per sobre visualment de les pestanyes inactives si es toquen */
+    z-index: 9999;
+    
+    /* També pots fer que l'ombra sigui una mica més forta per donar sensació de relleu */
+    box-shadow: 2px -4px 8px rgba(0, 0, 0, 0.185);
+}
+
+/* Evitem que la pestanya activa es mogui 'encara més' si li passem el ratolí per sobre */
+.tab.activa:hover {
+    transform: translateY(-4px); 
+}
 
 #monomonitos-tab {
   background-color: #cfffd8;
+  background: linear-gradient(180deg, #cfffd8 30%, #badf6a 100%);
 }
 
 #portfoli-tab {
   background-color: #bcf6ff;
+  background: linear-gradient(180deg, #bcf6ff 30%, rgb(73, 199, 140) 100%);
 }
 
 #galeria-tab {
    background-color: #e7d4ff;
+   background: linear-gradient(180deg, #e7d4ff 30%, rgb(103, 105, 222) 100%);
 }
 
 #cv-tab {
   background-color: #ffd8fb;
+  background: linear-gradient(180deg, #ffd8fb 30%, #dd81ff 100%);
 }
 
 .tab:hover {
@@ -288,7 +337,7 @@ h2 {
   cursor: pointer;
   filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.3)); /* Ombra d'enganxina */
   transition: transform 0.2s ease;
-  z-index: 10000 !important;
+  z-index: 900 !important;
 }
 
 /* El truc orgànic: rotem les parells cap a un cantó i les senars cap a l'altre */
@@ -466,7 +515,7 @@ h2 {
 
 /* Estil pel text (Shop 1, Portfoli 1...) */
 .text-peu {
-  font-family: 'gap-black', sans-serif; /* Utilitzem la teva font personalitzada */
+  font-family: 'AP-b', sans-serif !important; /* Utilitzem la teva font personalitzada */
   font-size: 1rem;
   color: #7cbe86; /* Pots canviar-ho al color que més t'agradi */
   opacity: 0.8; /* Una mica transparent perquè no robi protagonisme */
@@ -516,8 +565,8 @@ h2 {
   gap: 30px;
   margin-top: 20px;
   transition: all 0.4s ease;
-  font-family: 'gap-black', sans-serif;
-  font-size: 1.2rem;
+  font-family: 'AP-b', sans-serif;
+  font-size: 1.4rem;
   text-align: center;
 }
 
@@ -548,16 +597,17 @@ h2 {
 .seccio-portada img { filter: grayscale(1) brightness(0); }
 
 /* Shop: Verd (color original de la teva fletxa) */
-.seccio-shop #etiqueta-pagina { color: #7cbe86; }
-.seccio-shop img { filter: hue-rotate(0deg); }
+.seccio-shop #etiqueta-pagina { color: #000000; }
+.seccio-shop img { filter: grayscale(1) brightness(0); }
 
 /* Portfolio: Blau (rotem el verd uns 160 graus cap al blau) */
-.seccio-portfolio #etiqueta-pagina { color: #86b3ff; }
-.seccio-portfolio img { filter: hue-rotate(100deg); }
+.seccio-portfolio #etiqueta-pagina { color: #000000; }
+.seccio-portfolio img { filter: grayscale(1) brightness(0); }
 
 /* CV: Violeta (rotem uns 240 graus) */
-.seccio-galeria #etiqueta-pagina { color: #b589df; }
-.seccio-galeria img { filter: hue-rotate(150deg); }
+.seccio-galeria #etiqueta-pagina { color: #000000; }
+.seccio-galeria img { filter: grayscale(1) brightness(0); }
+
 .peu-navegacio {
   position: relative;
   z-index: 10; /* Per sobre de qualsevol ombra de la llibreta */
@@ -698,6 +748,7 @@ h2 {
 
 /* Estils per fer flotar el post-it */
 .postit-container {
+  
   position: absolute;
   top: 60px;    /* Ajusta la posició segons vulguis */
   right: 40px;  /* Ajusta la posició segons vulguis */
@@ -708,33 +759,123 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  /* Aquí rotem TOT el conjunt (imatge + text) */
-  transform: rotate(-5deg); 
-  transition: transform 0.3s ease;
+
   z-index: 1000;
+  background-color: #ff00d9;
 }
 
-.postit-container img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.postit-text {
-  position: absolute;
-  /* Triem una font que sembli escrita a mà */
-  font-family: 'Comic Sans MS', cursive, sans-serif; 
-  font-size: 16px;
-  color: #2e2e2e;
+.button-container {
   text-align: center;
-  pointer-events: none; /* Això fa que el clic "travessi" el text i vagi al contenidor */
-  user-select: none;
-  font-weight: bold;
-  transform: rotate(-10deg);
+  z-index: 1001;
+  position: absolute;
+  top: 40px;
+  right: 20px;
 }
-.postit-container:hover {
-  transform: rotate(0deg) scale(1.1) !important; /* Efecte divertit en passar el ratolí */
+
+.retro-button {
+    display: inline-flex; /* Per alinear icona i text en línia */
+    align-items: center;  /* Alineació vertical centrada */
+    padding: 8px 16px;    /* Espai intern (més estret i llarg) */
+    border-radius: 10px; /* Molt arrodonit, com una pastilla */
+    text-decoration: none; /* Eliminar el subratllat del enllaç */
+    cursor: pointer;      /* Cursor de mà al passar-hi per sobre */
+    position: relative;   /* Necessari per al pseudo-element de brillantor */
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;          /* Text de color negre */
+    box-shadow: 2px 3px 6px rgba(153, 0, 127, 0.785); /* Ombra exterior per donar profunditat */
+    transition: all 0.1s ease-in-out; /* Una petita transició per l'efecte click */
+    z-index: 1001;
+    font-family: AP-f, gap;
+    font-size: 1rem;
+    animation: vibracio-intermitent 1.5s linear infinite;
+            
+            /* Opcional: hardware acceleration per millor rendiment */
+            will-change: transform;
+  }
+
+.retro-button {
+    background: linear-gradient(180deg, #ff35ab 30%, #f391d7 100%);
+    /* Opcional: una vora subtil per definir la forma */
+}
+
+/* El pseudo-element per a la capa de brillantor (highlight) a la meitat superior */
+.retro-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45%; /* Menys de la meitat per a un efecte més fi */
+    margin: 1.5px 3px 0 3px;
+    background: linear-gradient(180deg, #ffffff 0%, #ff00cc00 100%); /* Una capa blanca semi-transparent */
+    border-radius: 10px 10px 0 0; /* Arrodonit només a dalt */
+    pointer-events: none; /* Evita que la brillantor s'intercepti amb els clicks */
+}
+
+/* Efecte al passar el ratolí per sobre (hover) */
+.retro-button:hover {
+    background: linear-gradient(180deg, #ff35ab 30%, #ffc8ef 100%);
+    box-shadow: 2px 3px 6px rgb(153, 0, 127); /* Ombra una mica més gran */
+}
+
+/* Efecte en fer clic (active) */
+.retro-button:active {
+    box-shadow: 2px 3px 6px rgb(153, 0, 127); /* L'ombra es redueix per semblar premut */
+    top: 1px; /* El botó es mou una mica cap avall */
+}
+
+/* Estils per als elements interns (icona i text) */
+.retro-button .icon img{
+    width: 20px;/* Un tamany més gran per la icona */
+    line-height: 1;
+    position: absolute;
+    left: -4px;    /* Evitar que modifiqui l'alçada del text */
+}
+
+.retro-button .text {
+    line-height: 1;    /* Alineació vertical del text */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+
+/* Alineació de la icona a l'esquerra */
+.retro-button.icon-left {
+    flex-direction: row;
+}
+.retro-button.icon-left .icon {
+    margin-right: 1px; /* Espai a la dreta de la icona */
+}
+
+/* Alineació de la icona a la dreta */
+.retro-button.icon-right {
+    flex-direction: row;
+}
+.retro-button.icon-right .text {
+    margin-right: 12px; /* Espai a l'esquerra de la icona (ara a la dreta) */
+}
+
+@keyframes vibracio-intermitent {
+    /* Del 0% al 70% del temps (els primers 3.5 segons), es manté quiet */
+    0%, 80% { 
+        transform: translate(0, 0) rotate(0deg); 
+    }
+    
+    /* Del 70% al 100% (els últims 1.5 segons), concentrem tots els moviments ràpids */
+    73% { transform: translate(-2px, -1px) rotate(-1deg); }
+    76% { transform: translate(-3px, 0px) rotate(1deg); }
+    79% { transform: translate(0px, 1px) rotate(0deg); }
+    82% { transform: translate(2px, -1px) rotate(1deg); }
+    85% { transform: translate(-1px, 2px) rotate(-1deg); }
+    88% { transform: translate(-3px, 1px) rotate(0deg); }
+    91% { transform: translate(2px, 1px) rotate(-1deg); }
+    94% { transform: translate(-1px, -1px) rotate(1deg); }
+    97% { transform: translate(2px, 2px) rotate(0deg); }
+    
+    /* Al 100% torna a la posició original per enllaçar suaument amb el proper 0% */
+    100% { 
+        transform: translate(0, 0) rotate(0deg); 
+    }
 }
 
 /* Estil més petit i transparent per l'excl. IVA */
@@ -894,7 +1035,8 @@ h2 {
 .bienvenida {
   /* 1. Fem que el color base del text sigui transparent */
   color: transparent;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "AP-f", Arial, Helvetica, sans-serif;
+  font-size: 1rem !important;
   
   /* 2. Creem un fons degradat amb tots els colors (pots canviar-los si vols) */
   background-image: linear-gradient(
@@ -1080,7 +1222,6 @@ body, * {
 .inline-seg { right: 5px; }
 
 .Galeria h3 {
-   font-family: gap; 
    font-size: 1rem; 
    margin-bottom: 5px;
 }
@@ -1092,7 +1233,7 @@ body, * {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Si veus que el marc no quadra amb els marges, pots canviar això per: object-fit: fill; */
-  z-index: 100; /* Valor alt perquè estigui literalment per sobre del text i les fotos */
+  z-index: 1000; /* Valor alt perquè estigui literalment per sobre del text i les fotos */
   pointer-events: none; /* CRUCIAL: Deixa "passar" els clics a través de la imatge per poder tocar les fletxes i fer scroll */
   display: block;
 }
@@ -1259,4 +1400,114 @@ body, * {
   .popup-dreta {
     text-align: left; /* Tornem a alinear a l'esquerra */
   }
+}
+
+.shop-title {
+  font-family: AP-b;
+  font-size: 4rem;
+  position: absolute;
+  left: 120px;
+  font-style: oblique;
+  color: #b7edce;
+  z-index: 1000;
+}
+
+/* =========================================
+   ACTUALITZACIÓ: SCROLL I SECCIÓ CONTACTE
+   ========================================= */
+
+/* 1. Desbloquegem el scroll vertical del cos de la pàgina */
+body {
+  overflow-y: auto !important; 
+  overflow-x: hidden;          
+}
+
+/* 2. Forcem al fons animat a ser més llarg perquè no es talli la imatge de fons al fer scroll */
+#camera-wrapper {
+  /* La fórmula max() assegura que mai sigui inferior a la pantalla (100vh), 
+     però hi afegeix espai dinàmic a sota perquè càpiga el contacte */
+  height: max(100vh, calc(50vh + 550px)) !important; 
+  background-position: center top !important; /* L'ancorem a dalt per estabilitat */
+}
+
+/* 3. Maquetació del contenidor de contacte (clavat al teu croquis) */
+/* 3. Contenidor de contacte: Flexbox per centrar els botons */
+#contact-container {
+  position: absolute;
+  top: calc(100% + 90px); /* Distància sota la llibreta */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 500px;
+  
+  /* Utilitzem Flexbox per posar-los de costat i centrats */
+  display: flex;
+  flex-direction: row; 
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Espai entre els dos botons */
+  flex-wrap: wrap; /* Si la pantalla del mòbil és molt petita, un baixarà sota l'altre */
+}
+
+/* --- ESTIL DELS BOTONS DE CONTACTE --- */
+#instagram, #mail {
+    display: inline-flex; 
+    align-items: center;  
+    justify-content: center;
+    padding: 8px 20px;    
+    border-radius: 100px; /* Arrodonit tipus pastilla */
+    cursor: pointer;      
+    position: relative;   
+    box-shadow: 2px 3px 6px rgba(153, 0, 127, 0.4); 
+    transition: all 0.1s ease-in-out; 
+    z-index: 1001;
+    background: linear-gradient(180deg, #ff35ab 30%, #f391d7 100%);
+    border: 2px solid #ff97d9;
+    text-decoration: none;
+}
+
+/* El pseudo-element per al "brillo" (Glossy effect) */
+#instagram::before, #mail::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45%; 
+    margin: 1.5px 3px 0 3px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 100%);
+    border-radius: 100px 100px 0 0; 
+    pointer-events: none; 
+}
+
+/* Efecte Hover (al passar el ratolí) */
+#instagram:hover, #mail:hover {
+    background: linear-gradient(180deg, #ff35ab 30%, #ffc8ef 100%);
+    box-shadow: 2px 4px 8px rgba(153, 0, 127, 0.6); 
+    transform: translateY(-2px);
+}
+
+/* Efecte Active (al fer clic) */
+#instagram:active, #mail:active {
+    box-shadow: 1px 1px 3px rgba(153, 0, 127, 0.6); 
+    transform: translateY(1px); 
+}
+
+/* Ajustos per a les imatges de dins els botons */
+#instagram img, #mail img {
+    width: 24px;
+    margin-right: 10px; /* Espai a la dreta de la icona */
+    z-index: 2; /* Assegurem que estigui per sobre del brillo */
+}
+
+/* Ajustos pel text de dins els botons */
+#instagram p, #mail p {
+    font-family: 'gap', sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1;
+    z-index: 2; /* Assegurem que estigui per sobre del brillo */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Ombra fina pel text blanc */
 }

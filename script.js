@@ -54,9 +54,9 @@ function ajustarEscalaEscriptori() {
 
     botons[0].onclick = () => animarAPagina(0); // Portada
     botons[1].onclick = () => animarAPagina(2); // Monomonitos
-    botons[2].onclick = () => animarAPagina(4); // Portfoli
-    botons[3].onclick = () => animarAPagina(5); // Galeria
-    botons[4].onclick = () => animarAPagina(6); // CV
+    botons[2].onclick = () => animarAPagina(3); // Portfoli
+    botons[3].onclick = () => animarAPagina(4); // Galeria
+    botons[4].onclick = () => animarAPagina(5); // CV
 
     // --- Lògica del clic al Post-it ---
 const postitLink = document.getElementById('postit-link');
@@ -66,16 +66,14 @@ if (postitLink) {
     };
 }
 
-    // --- 3. LÒGICA DE LES FLETXES I EL PEU DE PÀGINA ---
     const infoPagines = {
         0: { text: "Portada", classe: "seccio-portada" },
         1: { text: "About", classe: "seccio-portada" },
         2: { text: "Monomonitos Shop", classe: "seccio-shop" },
-        3: { text: "Monomonitos Shop 2", classe: "seccio-shop" },
-        4: { text: "Portfolio", classe: "seccio-portfolio" },
-        5: { text: "Galeria", classe: "seccio-galeria" },
-        6: { text: "CV", classe: "seccio-cv" },
-        7: { text: "Guest Book", classe: "seccio-guestbook" }
+        3: { text: "Portfolio", classe: "seccio-portfolio" },
+        4: { text: "Galeria", classe: "seccio-galeria" },
+        5: { text: "CV", classe: "seccio-cv" },
+        6: { text: "Guest Book", classe: "seccio-guestbook" }
     };
 
     function actualitzarPeu(numPagina) {
@@ -90,7 +88,30 @@ if (postitLink) {
 
         // Gestió de visibilitat de fletxes
         document.getElementById('btn-ant').style.visibility = (numPagina === 0) ? "hidden" : "visible";
-        document.getElementById('btn-seg').style.visibility = (numPagina === 7) ? "hidden" : "visible"; // ATENCIÓ: canviat a 4 per l'última pàgina
+        document.getElementById('btn-seg').style.visibility = (numPagina === 7) ? "hidden" : "visible";
+    }
+
+    // --- NOU: FUNCIÓ PER ACTUALITZAR LES PESTANYES VISUALMENT ---
+    function actualitzarPestanyes(numPagina) {
+        // 1. Treiem la classe 'activa' a totes les pestanyes
+        botons.forEach(boto => boto.classList.remove('activa'));
+
+        // 2. Depenent de la pàgina on siguem, afegim la classe a la pestanya correcta
+        if (numPagina === 0 || numPagina === 1) {
+            document.getElementById('portada-tab').classList.add('activa');
+        } 
+        else if (numPagina === 2) {
+            document.getElementById('monomonitos-tab').classList.add('activa');
+        }
+        else if (numPagina === 3) {
+            document.getElementById('portfoli-tab').classList.add('activa');
+        }
+        else if (numPagina === 4) {
+            document.getElementById('galeria-tab').classList.add('activa');
+        }
+        else if (numPagina >= 5) {
+            document.getElementById('cv-tab').classList.add('activa');
+        }
     }
 
     // Controls de les fletxes
@@ -105,10 +126,12 @@ if (postitLink) {
     // Escoltador d'esdeveniments de la llibreta (canvi de pàgina)
     pageFlip.on('flip', (e) => {
         actualitzarPeu(e.data);
+        actualitzarPestanyes(e.data); // Ara sí, funciona perfectament!
     });
 
-    // Inicialització visual del peu de pàgina
+    // Inicialització visual en obrir la web
     actualitzarPeu(0);
+    actualitzarPestanyes(0);
 
 
     // --- 4. LÒGICA DE LA BOTIGA (POPUP I ENGANXINES) ---
@@ -457,3 +480,4 @@ elementsClicables.forEach(element => {
         cursorAnimat.src = gifNormal;
     });
 });
+

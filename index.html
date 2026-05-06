@@ -12,16 +12,18 @@
     
 <nav class="marcapagines">
   <button class="tab" id="portada-tab">
-      <img src="assets/portada.webp" alt="Portada" class="icona-tab" style="width: 17px; margin-bottom: 2px;">
+      <img src="assets/house.png" alt="Portada" class="icona-tab">
   </button>
   <button class="tab" id="monomonitos-tab">
-      <img src="assets/monomonitos.webp" alt="Monomonitos" class="icona-tab">
+      <img src="assets/handbag.png" alt="Monomonitos" class="icona-tab">
   </button>
-  <button class="tab" id="portfoli-tab">Portfolio</button>
+  <button class="tab" id="portfoli-tab">
+    <img src="assets/briefcase-business.png" alt="Portada" class="icona-tab" id="icon-galeria">
+  </button>
    <button class="tab" id="galeria-tab">
-      <img src="assets/icon-galeria.png" alt="Portada" class="icona-tab" id="icon-galeria" style="width: 20px; margin-bottom: -1px;">
+      <img src="assets/camera.png" alt="Portada" class="icona-tab" id="icon-galeria" style="width: 20px; margin-bottom: -1px;">
   </button>
-  <button class="tab" id="cv-tab">CV</button>
+  <button class="tab" id="cv-tab" style="font-weight: 900;">CV</button>
   <div style="width: 15px;" id="tab-transparent"></div>
 </nav>
 
@@ -30,17 +32,24 @@
 <div class="llibreta" id="llibreta-interactiva">
 
 
-
   
 
 <div class="pagina portada page-cover" data-density="soft">
   <div class="page-content" style="position: relative; overflow: visible;">
     
-    <div class="postit-container" id="postit-link">
-  <img src="assets/postit.jpeg.webp" alt="Read Me">
-  <span class="postit-text">read me</span>
-</div>
-    
+    <div class="button-container" id="postit-link">
+
+        <!-- Exemple 1: Icona a l'esquerra ("Add to Friends") -->
+        <a href="#" class="retro-button icon-left">
+            <span class="icon">
+              <img src="assets/estrelletes.gif" alt="">
+            </span> <!-- Hem fet servir un emoji per simplicitat -->
+            <span class="text">Read me</span>
+        </a>
+
+    </div>
+
+
     <img src="assets/portada-web.webp" alt="" class="img-portada">
   </div>
 </div>
@@ -48,17 +57,80 @@
 <div class="pagina read-me" data-density="soft">
   <div class="page-content" style="position: relative; overflow: visible;">
 <img src="assets/cartel.webp" alt="" style="width: 200px; height: auto; position: absolute; top: 0px; right: 84px;">
-    <p class="bienvenida" style="margin: 200px 34px 0 60px">Welcome to my web page I'm Siji Bernita. A latina and trans artist based in Amsterdam. Feel free to navigate trohuh this sticker book. You can find my Monomonitos shop and also more information on my work. Thank you for your visit.</p>
+    <p class="bienvenida" style="margin: 200px 30px 0 40px; text-align: justify; font-size: 0.9rem; ">Welcome to my website! <br> 
+I'm Siji Bernita, a Latin and trans artist based in Amsterdam. <br>
+Feel free to explore this sticker book. Here, you can find my Monomonitos ceramics shop, as well as more information about my work and my contact details in case you’d like to commission a special piece.
+
+<br> <br> Thank you for visiting.
+<br>Siji</p>
  <div class="read-me-gifs">
     </div>
   </div>
 </div>
 
- <div class="pagina Monomonitos">
+   <div class="pagina Monomonitos">
+   <img src="assets/fondo-verd.webp" alt="" class="fondo-cubre">
     <div class="page-content">
-      
+      <h2 class="shop-title">SHOP</h2>
       <div class="aparador">
       <img src="assets/1.webp" class="enganxina" 
+    data-nom="Vase corazón caramelo <3" 
+     data-preu="250" 
+     data-imatges-popup="assets/caramelo0.webp"
+     data-descripcio="size_45 x 30 cm<br>Earthware vase with low temperature glossy colored glazes."
+     data-stripe="https://buy.stripe.com/teu_enllaç_1">
+        <img src="assets/2.webp" class="enganxina" style="width: 90px;"
+     data-nom="Vase pumpkin" 
+     data-preu="90" 
+     data-imatges-popup="assets/pumpkin.webp, assets/pumpkin2.webp, assets/pumpkin3.webp"
+     data-descripcio="size_ <br>Black stoneware with high temperature mate glazes."
+     data-stripe="https://buy.stripe.com/teu_enllaç_1">
+     <img src="assets/3.webp" class="enganxina" 
+     data-nom="Vase lacito" 
+     data-preu="50" 
+     data-imatges-popup="assets/lacito.webp, assets/lazito2.webp"
+     data-descripcio="size_ <br>White stoneware with high temperature mate glazes."
+     data-stripe="https://buy.stripe.com/teu_enllaç_1">
+
+     <img src="assets/1.webp" class="enganxina" 
+    data-nom="Vase corazón caramelo <3" 
+     data-preu="250" 
+     data-imatges-popup="assets/caramelo0.webp"
+     data-descripcio="size_45 x 30 cm<br>Earthware vase with low temperature glossy colored glazes."
+     data-stripe="https://buy.stripe.com/teu_enllaç_1">
+        <img src="assets/2.webp" class="enganxina" style="width: 90px;"
+     data-nom="Vase pumpkin" 
+     data-preu="90" 
+     data-imatges-popup="assets/pumpkin.webp, assets/pumpkin2.webp, assets/pumpkin3.webp"
+     data-descripcio="size_ <br>Black stoneware with high temperature mate glazes."
+     data-stripe="https://buy.stripe.com/teu_enllaç_1">
+     <img src="assets/3.webp" class="enganxina" 
+     data-nom="Vase lacito" 
+     data-preu="50" 
+     data-imatges-popup="assets/lacito.webp, assets/lazito2.webp"
+     data-descripcio="size_ <br>White stoneware with high temperature mate glazes."
+     data-stripe="https://buy.stripe.com/teu_enllaç_1">
+
+     <img src="assets/1.webp" class="enganxina" 
+    data-nom="Vase corazón caramelo <3" 
+     data-preu="250" 
+     data-imatges-popup="assets/caramelo0.webp"
+     data-descripcio="size_45 x 30 cm<br>Earthware vase with low temperature glossy colored glazes."
+     data-stripe="https://buy.stripe.com/teu_enllaç_1">
+        <img src="assets/2.webp" class="enganxina" style="width: 90px;"
+     data-nom="Vase pumpkin" 
+     data-preu="90" 
+     data-imatges-popup="assets/pumpkin.webp, assets/pumpkin2.webp, assets/pumpkin3.webp"
+     data-descripcio="size_ <br>Black stoneware with high temperature mate glazes."
+     data-stripe="https://buy.stripe.com/teu_enllaç_1">
+     <img src="assets/3.webp" class="enganxina" 
+     data-nom="Vase lacito" 
+     data-preu="50" 
+     data-imatges-popup="assets/lacito.webp, assets/lazito2.webp"
+     data-descripcio="size_ <br>White stoneware with high temperature mate glazes."
+     data-stripe="https://buy.stripe.com/teu_enllaç_1">
+
+     <img src="assets/1.webp" class="enganxina" 
     data-nom="Vase corazón caramelo <3" 
      data-preu="250" 
      data-imatges-popup="assets/caramelo0.webp"
@@ -80,53 +152,18 @@
     </div>
   </div>
 
-  <div class="pagina Monomonitos">
-    <div class="page-content">
-      <div class="aparador">
-        <img src="assets/Jarron 1.png" class="enganxina" 
-     data-nom="Jarró Ceràmica 1" 
-     data-preu="15.00" 
-     data-stripe="https://buy.stripe.com/teu_enllaç_1">
-        </div>
-    </div>
-  </div>
-
-
-
-  <div class="pagina Portfoli">
+<div class="pagina Portfoli">
          <img src="assets/fondo-blau.webp" alt="" class="fondo-cubre">
     <div class="page-content fondo-marc">
-      <h2>Portfolio</h2>
-      <img style="width: 40%;"src="assets/WhatsApp Image 2026-04-21 at 10.12.20.jpeg">
-      <img style="width: 40%;" src="assets/WhatsApp Image 2026-04-21 at 10.12.39.jpeg">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies, neque nec ullamcorper scelerisque, nulla lorem dapibus massa, non euismod ligula massa sed leo. Fusce ut nisi sed lectus rhoncus rutrum id vitae risus. Donec ac gravida sapien. Pellentesque venenatis euismod dignissim. Integer sollicitudin turpis elit, nec tincidunt eros semper interdum. Nullam sagittis risus nec ex pulvinar, quis mollis risus pharetra. Sed aliquam, eros vitae lobortis facilisis, arcu mi vestibulum metus, non blandit leo risus quis risus.
-
-Fusce ullamcorper aliquam odio, vitae commodo ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse lobortis massa massa, non volutpat justo sodales quis. Etiam a libero posuere, aliquet ante eu, sollicitudin diam. Aliquam eget neque luctus, congue arcu vitae, placerat sapien. Vivamus convallis, urna in aliquam euismod, nisi mi gravida orci, nec pharetra sapien ipsum in ex. Curabitur elit augue, maximus eu suscipit et, porttitor quis est. Mauris posuere nisi et purus luctus, eget blandit diam semper. Nam quis magna interdum, dapibus quam in, feugiat dolor. Aenean viverra quam eu neque finibus ultricies.
-
-Curabitur condimentum velit nulla, ac dignissim tortor viverra non. Sed justo purus, luctus et aliquet non, ornare in massa. Mauris tempor dolor eros, eget efficitur dolor rhoncus at. Nulla eros nibh, varius in tempor in, elementum quis est. Cras et enim posuere, rhoncus neque ac, tempus eros. In ut arcu et neque consequat congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum enim id sodales efficitur. Donec lobortis nulla urna, in varius justo ornare at. Praesent id condimentum dolor.
-
-Cras porttitor libero non lacus faucibus hendrerit. Suspendisse molestie est sit amet ligula posuere, in euismod eros egestas. Proin ultrices feugiat imperdiet. Donec commodo feugiat consequat. Nulla quis accumsan dolor. Nunc ultrices felis eget arcu maximus bibendum. In efficitur nibh arcu, ut porttitor tellus lacinia non. Suspendisse potenti. Maecenas egestas velit efficitur massa pellentesque, quis pharetra ante venenatis. Integer gravida mattis mi, sit amet vestibulum urna tincidunt non.
-
-Nunc sit amet finibus odio, id faucibus odio. Sed ornare viverra libero, vel facilisis sem. Vestibulum dapibus molestie ipsum, dictum elementum ante finibus porttitor. Vivamus eget placerat lorem. Phasellus at nisl sit amet enim gravida placerat eu a lorem. Nulla lacinia mattis ante, sit amet ullamcorper nibh accumsan a. Quisque ut eleifend urna. Pellentesque rutrum dapibus est, ut vestibulum libero semper quis. Nullam non tellus in mauris iaculis porta ac sit amet massa.
-
-Aliquam at sapien vitae ante sagittis tristique. Sed tincidunt et felis pellentesque dignissim. Sed elementum est vitae metus aliquam, in egestas tortor sodales. Sed molestie tellus nunc. In gravida ante quis nibh facilisis, at porttitor leo iaculis. Integer nec massa dolor. In congue placerat enim, quis scelerisque neque porttitor quis. Nulla luctus tristique massa id egestas. Mauris tempus orci eget ultrices interdum. Aliquam pellentesque diam est, eget molestie lectus porttitor quis. Donec vel est euismod orci euismod egestas. Vestibulum volutpat in risus eu blandit.
-
-Proin aliquam metus nisi, a pharetra nisl convallis et. Nam turpis lectus, pretium sed viverra ut, molestie a urna. Morbi euismod vehicula mauris. Pellentesque ultricies, leo nec euismod sollicitudin, dui ante feugiat velit, nec maximus odio nibh et tellus. Phasellus nisl dolor, eleifend vitae fermentum non, rhoncus at eros. Nunc placerat scelerisque sollicitudin. Duis eget interdum dui. Maecenas a mollis tortor.
-
-Pellentesque vestibulum bibendum justo, et maximus ipsum aliquet at. Aenean velit odio, fermentum quis tempus sed, rutrum eget nisl. Nam eget pretium nibh. In hac habitasse platea dictumst. Donec gravida dui est, ac cursus ante blandit eu. Mauris a tincidunt tortor. Vivamus volutpat vestibulum orci sit amet congue. Sed non libero ullamcorper, fringilla justo et, sollicitudin urna. Aenean non aliquam nulla. Curabitur ornare felis sit amet aliquet sodales.
-
-In placerat aliquet sem maximus imperdiet. Aliquam laoreet velit vitae dolor elementum consectetur. Morbi volutpat nisi sed sem euismod, in cursus neque rhoncus. Aenean pellentesque porta ultrices. Aliquam non viverra massa. Ut nec elementum nisl. Donec eu tellus eu dolor sodales mattis.
-
-Integer quis posuere ex, ut aliquam mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur molestie finibus lacinia. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla ac aliquam dui. Praesent eu tellus risus. Cras lobortis consequat finibus. Morbi tincidunt diam ex, a viverra augue finibus at. Phasellus ornare lacus ipsum, ac molestie turpis finibus fermentum. Pellentesque ultricies justo ut lorem vulputate malesuada. Aenean commodo libero sit amet volutpat aliquet.
-
-Proin imperdiet justo quis felis posuere, accumsan venenatis tortor ornare. Quisque id pharetra metus, vel pulvinar elit. Phasellus tortor nulla, malesuada sed efficitur egestas, varius id turpis. Donec feugiat, ex sit amet laoreet tempus, eros odio scelerisque neque, in egestas nulla elit ut justo. In volutpat, sapien a tristique vulputate, ex libero condimentum ex, varius sodales dolor nunc in purus. Proin maximus eget ante a vestibulum. Pellentesque nulla eros, rutrum a ligula sed, blandit sollicitudin neque. Nunc mattis a magna ut tempor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean lobortis nunc est, at rutrum risus euismod et. Mauris dignissim dui non elementum molestie. Suspendisse tempus vestibulum arcu id sagittis.
-
-Pellentesque eu mollis nunc. Nullam vitae mauris ipsum. Praesent eleifend lectus non porttitor auctor. Quisque pretium hendrerit nisi nec malesuada. Vivamus aliquam, ex sit amet lacinia volutpat, odio felis posuere tortor, ut mollis diam enim non velit. Nunc sem ipsum, consequat et fermentum eget, maximus et dolor. Fusce augue purus, tempor eleifend tincidunt sed, tincidunt id tortor. Aliquam vitae volutpat leo.
-
-Ut laoreet ex quis aliquam maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec et nulla ac nisi posuere varius eget sit amet sem. Fusce efficitur nunc consequat nibh vestibulum, in vulputate quam lacinia. Cras luctus est pharetra, scelerisque nisl sed, aliquam metus. Praesent lacinia, mauris euismod aliquet venenatis, mi orci pellentesque mi, at condimentum lacus sapien eu arcu. Proin dolor magna, dictum id nisl sodales, gravida condimentum diam.
-
-Aliquam sodales nec lacus vitae auctor. Vivamus blandit mauris est, at ultrices risus pharetra sit amet. Proin sollicitudin enim ac congue placerat. Duis tincidunt quam in mi condimentum luctus. Morbi quis libero in neque venenatis scelerisque ut et urna. Maecenas accumsan purus ac pellentesque facilisis. Duis facilisis tellus in lobortis laoreet. Fusce feugiat lectus at fringilla aliquet. Praesent rutrum pulvinar tortor at viverra. Ut porta vitae arcu vel efficitur. Nunc pretium rhoncus urna feugiat laoreet. Ut a enim sagittis metus maximus ultrices. Aliquam in neque id libero auctor tristique. Pellentesque ut elit ut ligula condimentum bibendum sed eu dolor. Fusce mattis aliquet augue, eget semper felis lacinia vitae. In a pharetra nisi.</p>
-    </div>
+      <h3>Exposició a Amsterdam</h3>
+    <div class="galeria-inline-wrapper">
+      <button class="carrusel-btn inline-btn inline-ant">&#10094;</button>
+      <img src="assets/galeria-1.webp" alt="Exposició" class="img-galeria" 
+           data-imatges="assets/galeria-1.webp, assets/galeria-2.jpg, assets/galeria-3.jpg">
+      <button class="carrusel-btn inline-btn inline-seg">&#10095;</button>
+    <p>Descripció</p>
+    </div>    
+  </div>
   </div>
 
 
@@ -138,9 +175,10 @@ Aliquam sodales nec lacus vitae auctor. Vivamus blandit mauris est, at ultrices 
     <div class="galeria-inline-wrapper">
       <button class="carrusel-btn inline-btn inline-ant">&#10094;</button>
       <img src="assets/galeria-1.webp" alt="Exposició" class="img-galeria" 
-           data-imatges="assets/galeria-1.webp, assets/galeria-2.JPG, assets/galeria-3.jpg">
+           data-imatges="assets/galeria-1.webp, assets/galeria-2.jpg, assets/galeria-3.jpg">
       <button class="carrusel-btn inline-btn inline-seg">&#10095;</button>
     </div>
+    <p style="font-family: arial;">12/04/2025</p>
 
     <!-- ESDEVENIMENT 2 -->
     <h3>Taller de Ceràmica</h3>
@@ -210,6 +248,20 @@ Aliquam sodales nec lacus vitae auctor. Vivamus blandit mauris est, at ultrices 
             <img src="assets/fletxa.png" alt="Següent" style="pointer-events: none;">
         </button>
     </div>
+
+<div id="contact-container">
+    <!-- Botó d'Instagram -->
+    <a id="instagram" href="https://www.instagram.com/sijilosalpasar" target="_blank">
+        <img src="assets/instagram.png" alt="Insta">
+        <p>@sijilosalpasar</p>
+    </a>
+
+    <!-- Botó de Correu -->
+    <a id="mail" href="mailto:siji@gmail.com">
+        <img src="assets/mail.png" alt="mail">
+        <p>siji@gmail.com</p>
+    </a>
+</div>
 
   </div>
   </div>
