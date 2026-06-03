@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // --- 1. INICIALITZACIÓ DE LA LLIBRETA ---
     const llibretaElement = document.querySelector('.llibreta');
@@ -15,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     useMouseEvents: false
     // ELIMINA minWidth, maxWidth, minHeight i maxHeight. Ja no els necessitem!
 });
+
+
 function ajustarEscalaEscriptori() {
         const escriptori = document.querySelector('.escriptori');
         if (!escriptori) return;
@@ -25,7 +29,7 @@ function ajustarEscalaEscriptori() {
 
         // 20px = 10px de marge esquerre + 10px de marge dret
         const ampladaDisponible = window.innerWidth - 60; 
-        const alcadaDisponible = window.innerHeight - 60;
+        const alcadaDisponible = window.innerHeight - 260;
 
         const escalaX = ampladaDisponible / ampladaBase;
         const escalaY = alcadaDisponible / alcadaBase;
@@ -177,7 +181,7 @@ carruselSeg.addEventListener('click', () => {
 
 // Quan cliquem un producte
 productes.forEach(producte => {
-  ['click', 'touchend'].forEach(evt => producte.addEventListener(evt, (e) => {
+  producte.addEventListener('click', (e) => {
     e.preventDefault();
     
     // 1. Preparar Carrussel
@@ -205,7 +209,23 @@ productes.forEach(producte => {
     }
     
     fonsPopup.classList.remove('ocult');
-  }));
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    //document.getElementById('portfoli-tab').click();
 });
 
 // Tancar popup
@@ -426,12 +446,16 @@ carruselsInline.forEach(wrapper => {
     });
 
     // Clic a la imatge per obrir el ZOOM (a pantalla completa)
-    img.addEventListener('click', () => {
-        imatgesZoom = [...llistaImatges]; // Li passem tota la llista al zoom
-        indexZoom = indexActual;          // Li diem al zoom que comenci per la foto que estàvem mirant
-        actualitzarZoom();
-        zoomOverlay.classList.remove('ocult');
-    });
+img.addEventListener('click', () => {
+            imatgesZoom = llistaImatges; 
+            indexZoom = indexActual;     
+
+            if (typeof actualitzarZoom === "function") {
+                actualitzarZoom();
+            }
+            
+            document.getElementById('zoom-overlay').classList.remove('ocult');
+        });
 });
 
 // 2. OBRIR ZOOM DES DE LA BOTIGA (Monomonitos)
@@ -452,6 +476,36 @@ zoomOverlay.addEventListener('click', (e) => {
     }
 });
 
+// Variables per recordar quines imatges estem mirant en gran
+let imatgesZoomActual = [];
+let indexZoomActual = 0;
+
+const btnZoomAnt = document.getElementById('zoom-ant');
+const btnZoomSeg = document.getElementById('zoom-seg');
+const imgZoom = document.getElementById('zoom-img');
+
+// Lògica per la fletxa ESQUERRA del zoom
+if (btnZoomAnt) {
+    btnZoomAnt.addEventListener('click', (e) => {
+        e.stopPropagation(); // Evitem tancar el zoom al fer clic a la fletxa
+        if (imatgesZoomActual.length > 1) {
+            indexZoomActual = (indexZoomActual - 1 + imatgesZoomActual.length) % imatgesZoomActual.length;
+            imgZoom.src = imatgesZoomActual[indexZoomActual];
+        }
+    });
+}
+
+// Lògica per la fletxa DRETA del zoom
+if (btnZoomSeg) {
+    btnZoomSeg.addEventListener('click', (e) => {
+        e.stopPropagation(); // Evitem tancar el zoom al fer clic a la fletxa
+        if (imatgesZoomActual.length > 1) {
+            indexZoomActual = (indexZoomActual + 1) % imatgesZoomActual.length;
+            imgZoom.src = imatgesZoomActual[indexZoomActual];
+        }
+    });
+}
+
 // 1. Seleccionem el nostre cursor
 const cursorAnimat = document.getElementById('cursor-animat');
 
@@ -466,7 +520,7 @@ document.addEventListener('mousemove', function(e) {
 });
 
 // 4. Seleccionem tot allò on es pot fer clic (enllaços i botons)
-const elementsClicables = document.querySelectorAll('a, button');
+const elementsClicables = document.querySelectorAll('a, button, .retro-button');
 
 // 5. Afegim l'efecte de canvi a cada element clicable
 elementsClicables.forEach(element => {
@@ -480,4 +534,292 @@ elementsClicables.forEach(element => {
         cursorAnimat.src = gifNormal;
     });
 });
+
+// ==========================================
+// SISTEMA DEL PORTFOLI RETRO INTERACTIU
+// ==========================================
+
+// 1. LES DADES (Canvia el text i les rutes d'imatge pels teus projectes reals)
+const projectesPortfoli = [
+  {
+    titol: "Arm the dolls",
+    imatges: ["assets/DSC_3503.webp", "assets/DSC_348png.webp"], 
+    descripcio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel lacus dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin nisl dolor, consequat vitae ullamcorper a, pretium quis ante. Nullam ornare vitae turpis accumsan dapibus. Morbi egestas ut sem sit amet mollis. Curabitur vitae auctor ipsum. Praesent enim velit, elementum id aliquet ac, consequat pharetra erat. Fusce in lobortis purus. Maecenas dapibus eros porta nunc ultrices, eu lacinia elit cursus. Aliquam eu venenatis purus. Curabitur mattis ligula ac nisi pretium vestibulum. Donec nec leo at lacus vulputate ullamcorper."
+  },
+  {
+    titol: "Comida de dios",
+    imatges: ["assets/IMG_8715.webp", "assets/IMG_8744.webp", "assets/IMG_8737.webp", "assets/IMG_8706.webp"],
+    descripcio: "Cras egestas nec sapien nec commodo. Proin vitae finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris ut tempus ligula, non scelerisque enim. Aliquam congue lorem vel leo convallis, in tincidunt eros sollicitudin. Quisque ornare lobortis leo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed laoreet mauris sed lorem vestibulum ornare. Donec vestibulum lobortis neque, at luctus ex blandit sed. Pellentesque mattis nunc mi, venenatis rutrum turpis tincidunt a. Quisque eleifend interdum feugiat."
+  },
+  {
+    titol: "Other bodies manifesto",
+    imatges: ["assets/Fondo de “11 001” eliminado.webp", "assets/Fondo de “4 001” eliminado.webp", "assets/3 001.webp"],
+    descripcio: "Quisque non eleifend metus. Phasellus faucibus bibendum massa, sit amet pulvinar risus. Duis elementum ac eros a varius. Donec tempor posuere feugiat. Phasellus mollis ante id sem varius, ac blandit magna finibus. Suspendisse convallis mauris ligula, laoreet interdum dolor sollicitudin quis. In egestas dapibus ligula, nec malesuada est cursus vitae. Nunc volutpat imperdiet enim, sit amet ornare dui vestibulum sit amet. Curabitur ac lacinia tellus, quis mattis mauris. Sed diam erat, consequat eu auctor sit amet, faucibus vitae ex."
+  },
+  {
+    titol: "Proyecto X",
+    imatges: ["assets/illus1.webp"],
+    descripcio: "HSJHKSUIK kSHJ KHKSKHSHJSjSHHSJ SJK H."
+  },
+  {
+    titol: "Proyecto Y",
+    imatges: ["assets/clauer1.webp", "assets/clauer2.webp"],
+    descripcio: "AISHiisdh skad jadjsa lsdj sakdjasj adjlasj ajsak sad sakjdkas ."
+  }
+];
+
+let zIndexWindows = 1000; // Perquè al clicar una finestra es posi per sobre de les altres
+
+function inicialitzarPortfoli() {
+  const contenidorLlibreta = document.getElementById('contenidor-llibreta-portfoli');
+  const contenidorEscriptori = document.body; 
+
+  projectesPortfoli.forEach((projecte, index) => {
+    const finestra = document.createElement('div');
+    finestra.className = 'finestra-retro a-llibreta';
+    
+    let fletxesHTML = projecte.imatges.length > 1 ? `
+      <button class="btn-fletxa prev">&#10094;</button>
+      <button class="btn-fletxa next">&#10095;</button>
+    ` : '';
+
+    finestra.innerHTML = `
+      <div class="capcalera-finestra">
+        <span>${projecte.titol}</span>
+        <div class="botons-finestra">
+          <button class="btn-minimitzar" title="Tornar a la llibreta">&minus;</button>
+        </div>
+      </div>
+      <div class="contingut-finestra">
+        <div class="carrusel-finestra">
+          ${fletxesHTML}
+          <img src="${projecte.imatges[0]}" class="img-activa" data-index="0" alt="Projecte">
+        </div>
+        <p>${projecte.descripcio}</p>
+      </div>
+    `;
+
+    // --- LÒGICA DEL CARRUSEL (Ara arreglada pel mòbil) ---
+    if (projecte.imatges.length > 1) {
+      const imgActiva = finestra.querySelector('.img-activa');
+      
+      finestra.querySelector('.prev').addEventListener('click', (e) => {
+        e.stopPropagation(); // Evitem conflictes de tocs a la pantalla
+        let actual = parseInt(imgActiva.getAttribute('data-index'));
+        actual = (actual - 1 + projecte.imatges.length) % projecte.imatges.length;
+        imgActiva.src = projecte.imatges[actual];
+        imgActiva.setAttribute('data-index', actual);
+      });
+
+      finestra.querySelector('.next').addEventListener('click', (e) => {
+        e.stopPropagation(); // Evitem conflictes de tocs a la pantalla
+        let actual = parseInt(imgActiva.getAttribute('data-index'));
+        actual = (actual + 1) % projecte.imatges.length;
+        imgActiva.src = projecte.imatges[actual];
+        imgActiva.setAttribute('data-index', actual);
+      });
+    }
+
+    // --- LÒGICA DE ZOOM CORREGIDA I SEGURA ---
+    const imatgeCarrusel = finestra.querySelector('.img-activa');
+    
+    finestra.addEventListener('click', function(e) {
+    if (window.innerWidth <= 600) {
+        // En mòbil, si cliquen la finestra directament s'obre el zoom
+        // Si han clicat a una fletxa de dins el carrusel de la finestra, no fem això
+        if (!e.target.classList.contains('btn-fletxa')) {
+            
+            // --- NOVA LÒGICA (Utilitzem el sistema global del Zoom) ---
+            
+            // 1. Enviem totes les imatges d'aquest projecte al sistema global
+            imatgesZoom = [...projecte.imatges]; 
+            
+            // 2. Li diem que comenci des de la primera foto
+            indexZoom = 0;
+            
+            // 3. Cridem la funció global que ja s'encarrega automàticament 
+            // de posar la foto que toca i amagar/mostrar les fletxes correctament
+            if (typeof actualitzarZoom === "function") {
+                actualitzarZoom();
+            }
+            
+            // 4. Fem visible la pantalla de zoom
+            document.getElementById('zoom-overlay').classList.remove('ocult');
+            
+            // -----------------------------------------------------------
+        }
+    }
+});
+
+    contenidorLlibreta.appendChild(finestra);
+
+    // Lògica per EXTREURE a l'escriptori (Ordinador)
+    finestra.addEventListener('click', function(e) {
+      if (window.innerWidth > 600 && finestra.classList.contains('a-llibreta')) {
+        finestra.classList.remove('a-llibreta');
+        finestra.classList.add('a-escriptori');
+        contenidorEscriptori.appendChild(finestra);
+        
+        finestra.style.left = (60 + (index * 30)) + 'px';
+        finestra.style.top = (60 + (index * 30)) + 'px';
+        
+        zIndexWindows++;
+        finestra.style.zIndex = zIndexWindows;
+      }
+    });
+
+    // Lògica per MINIMITZAR
+    const btnMinimitzar = finestra.querySelector('.btn-minimitzar');
+    btnMinimitzar.addEventListener('click', (e) => {
+      e.stopPropagation();
+      finestra.classList.remove('a-escriptori');
+      finestra.classList.add('a-llibreta');
+      
+      finestra.style.left = '';
+      finestra.style.top = '';
+      finestra.style.width = '';
+      finestra.style.height = '';
+      
+      contenidorLlibreta.appendChild(finestra);
+    });
+
+    // Lògica d'ARROSSEGAR
+    const capcalera = finestra.querySelector('.capcalera-finestra');
+        let arrosegant = false;
+        let startX, startY, iniciX, iniciY;
+
+        capcalera.addEventListener('pointerdown', (e) => {
+           if (e.target.closest('.btn-minimitzar')) return;
+            if (window.innerWidth <= 600 || finestra.classList.contains('a-llibreta')) return;
+            
+            arrosegant = true;
+            capcalera.setPointerCapture(e.pointerId); 
+
+            startX = e.clientX;
+            startY = e.clientY;
+            iniciX = finestra.offsetLeft;
+            iniciY = finestra.offsetTop;
+            
+            zIndexWindows++;
+            finestra.style.zIndex = zIndexWindows;
+            e.preventDefault(); 
+        });
+
+        capcalera.addEventListener('pointermove', (e) => {
+            if (!arrosegant) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            finestra.style.left = (iniciX + dx) + 'px';
+            finestra.style.top = (iniciY + dy) + 'px';
+        });
+
+        capcalera.addEventListener('pointerup', (e) => {
+            arrosegant = false;
+            capcalera.releasePointerCapture(e.pointerId);
+        });
+
+        capcalera.addEventListener('pointercancel', (e) => {
+            arrosegant = false;
+            capcalera.releasePointerCapture(e.pointerId);
+        });
+  });
+}
+
+
+// Inicialitzem quant la web hagi carregat
+inicialitzarPortfoli();
+// Variable per controlar que només s'obrin un cop automàticament
+let portfoliJaObert = false;
+
+function obrirTresPrimeresFinestres() {
+    // Només ho fem si estem en ordinador i no s'han obert encara
+    if (window.innerWidth <= 600 || portfoliJaObert) return;
+    
+    portfoliJaObert = true;
+    const finestres = document.querySelectorAll('.finestra-retro');
+    const so = document.getElementById('so-popup');
+    const contenidorEscriptori = document.body;
+
+    // Definim posicions diferents per a les 3 primeres
+    const posicions = [
+        { top: '15%', left: '10%' },
+        { top: '45%', left: '65%' },
+        { top: '10%', left: '70%' }
+    ];
+
+    for (let i = 0; i < 3; i++) {
+        if (finestres[i]) {
+            // Un petit retard (delay) perquè no surtin totes exactament al mateix mil·lisegon
+            setTimeout(() => {
+                const f = finestres[i];
+                
+                // Si encara està a la llibreta, l'extraiem
+                if (f.classList.contains('a-llibreta')) {
+                    f.classList.remove('a-llibreta');
+                    f.classList.add('a-escriptori');
+                    contenidorEscriptori.appendChild(f);
+                    
+                    // Apliquem la posició específica
+                    f.style.top = posicions[i].top;
+                    f.style.left = posicions[i].left;
+                    
+                    // So de popup
+                    if (so) {
+                        so.currentTime = 0; // Reinicia el so si encara sona l'anterior
+                        so.play().catch(e => console.log("El navegador ha blocat el so inicial:", e));
+                    }
+                    
+                    zIndexWindows++;
+                    f.style.zIndex = zIndexWindows;
+                }
+            }, i * 300); // Surten amb un interval de 300ms entre elles
+        }
+    }
+}
+
+// LÒGICA PER DETECTAR QUAN ARRIBEM AL PORTFOLI
+// Busquem el botó del marcapàgines que porta al portfoli
+// Suposem que el botó té un ID o que saps quina pàgina és.
+// Si el teu botó de Portfoli al "marcapagines" té un ID, l'utilitzem:
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Detectar clic al marcapàgines de Portfoli
+    // (Ajusta 'portfoli-tab' si el teu ID és diferent)
+    const botoPortfoli = document.getElementById('portfoli-tab'); 
+    if (botoPortfoli) {
+        botoPortfoli.addEventListener('click', () => {
+            // Donem un marge de temps perquè la pàgina giri abans d'obrir els popups
+            setTimeout(obrirTresPrimeresFinestres, 600);
+        });
+    }
+    
+    // OPCIONAL: Si vols que també passi si l'usuari arriba passant pàgines manualment:
+    // pageFlip.on('flip', (e) => {
+    //    if (e.data === 4) { // Posa aquí el número de la pàgina on està el portfoli
+    //        setTimeout(obrirTresPrimeresFinestres, 600);
+    //    }
+    // });
+});
+// Si girem el mòbil o redimensionem la finestra, fiquem tot a llibretes
+window.addEventListener('resize', () => {
+  if (window.innerWidth <= 600) {
+    const finestres = document.querySelectorAll('.finestra-retro');
+    const contenidorLlibreta = document.getElementById('contenidor-llibreta-portfoli');
+    finestres.forEach(finestra => {
+      if (finestra.classList.contains('a-escriptori')) {
+        finestra.classList.remove('a-escriptori');
+        finestra.classList.add('a-llibreta');
+        finestra.style.left = '';
+        finestra.style.top = '';
+        contenidorLlibreta.appendChild(finestra);
+      }
+    });
+  }
+});
+
+
+
+
+
 

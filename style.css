@@ -1,26 +1,23 @@
-@font-face {
-  font-family: gap;
-  src: url(assets/gapsans-webfont.woff2);
-}
-@font-face {
-  font-family: gap-black;
-  src: url(assets/gapsansblack-webfont.woff2);
-}
+
 @font-face {
   font-family: nintendo;
   src: url(assets/FOT-RodinBokutoh.otf);
 }
 @font-face {
   font-family: AP-l;
-  src: url(assets/Arista-Pro-Light-trial.ttf);
+  src: url(assets/Quicksand-Regular.woff2);
 }
 @font-face {
   font-family: AP-b;
-  src: url(assets/Arista-Pro-Bold-trial.ttf);
+  src: url(assets/Quicksand-Bold.woff2);
 }
 @font-face {
   font-family: AP-f;
-  src: url(assets/Arista-Pro-Fat-trial.ttf);
+  src: url(assets/Quicksand-Bold.woff2);
+}
+@font-face {
+  font-family: round;
+  src: url(assets/Typo_Round_Regular_Demo.otf);
 }
 
 
@@ -29,40 +26,39 @@ body {
   margin: 0;
   
   height: 100vh;
+  height: 100dvh;
+
+display: flex;             /* NOU: Activa Flexbox */
+  flex-direction: column;    /* NOU: Coloca los elementos de arriba a abajo */
+
   background-color: #ffffff; /* Color de fons d'escriptori */
   font-family: 'AP-l', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url(assets/bk.webp);
   overflow: hidden; /* Evita que tota la pàgina faci scroll */
-background-size: cover; /* Fa que ocupi tot l'espai */
-  background-position: center; /* Manté el centre de la imatge al mig */
+  background-size: cover; /* Fa que ocupi tot l'espai */
+  background-image: url(assets/bk.webp);
+  /* CANVI: Forcem explícitament l'eix horitzontal i el vertical */
+  background-position: center center; 
+  
+  /* NOU: Fixem el fons perquè no depengui d'altres elements invisibles */
+  background-attachment: fixed;
+  
   background-repeat: no-repeat; /* Evita que la imatge es repeteixi */
-position: relative;
+  position: relative;
 }
 
 
-@media (max-width: 768px) {
-  body {
-    /* Forcem un zoom del 150% o superior segons el que necessitis */
-    background-size: 300% auto; 
-    
-    /* Pots moure l'enfocament del zoom ajustant la posició */
-    background-position: center; 
-  }
-}
+
   
 
 
 
 .escriptori {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  
   width: 400px; 
   height: 550px;
   
   /* LA CLAU ESTÀ AQUÍ: Centrem estirant l'element exactament la meitat de la seva mida cap a l'esquerra i cap amunt */
-  margin-left: -200px; /* La meitat de 550px */
-  margin-top: -275px;  /* La meitat de 650px */
   
   /* Centrem el contingut de dins de l'escriptori (llibreta i pestanyes) */
   display: flex;
@@ -71,6 +67,18 @@ position: relative;
   align-items: center;
   
   transform-origin: center center;
+}
+
+
+@media (min-width: 769px) {
+  body {
+    /* El primer paràmetre (center) és l'eix horitzontal i el segon és l'eix vertical.
+       - 50% és el mig exacte. 
+       - Si la imatge es veu massa avall, redueix el segon número (prova amb 40%, 30% o 20%) per "pujar" la imatge cap amunt. 
+       - Si vols baixar-la, puja el número (60%, 70%...).
+    */
+    background-position: center 50%; 
+  }
 }
 
 /* --- ESTILS DELS MARCAPÀGINES --- */
@@ -98,7 +106,6 @@ position: relative;
   padding: 8px 15px; /* Hem reduït una mica el padding també */
   font-size: 0.8rem;  /* Font més petita */
   margin-bottom: 9px;
-  font-family: gap, sans-serif;
   color: #000000;
 }
 /* El pseudo-element per a la capa de brillantor (highlight) a la meitat superior */
@@ -180,9 +187,9 @@ position: relative;
   height: 100%;
   padding: 10px;
   box-sizing: border-box;
-  border: 2px none #333;
-  border-radius: 0 5px 5px 0;
-  background-color: #eeeeee;
+  border: 2px none #33333300;
+  border-radius: 0 15px 15px 0;
+  background-color: transparent;
   /* Evita que el text es vegi del revés quan la pàgina està girada */
 }
 
@@ -277,7 +284,7 @@ position: relative;
 
 
 h2 {
-  font-family: gap;
+  font-family: AP-b;
   margin-top: 0px;
   font-size: 0.9rem;
 }
@@ -292,17 +299,6 @@ h2 {
   align-items: center;     /* Centrat vertical */
   overflow: hidden;
 }
-
-.titol-portada {
-  position: absolute;    /* Treu el text del flux normal per posar-lo "a sobre" */
-  z-index: 20;           /* Valor alt perquè quedi davant de la imatge */
-  color: rgb(249, 247, 255);          /* Color que contrasti */
-  font-size: 5rem;       /* Mida gran */
-  margin: 0;
-  pointer-events: none;  /* Evita que el text bloquegi el ratolí en passar pàgina */
-  font-family: gap-black;
-}
-
 
 /* La imatge de fons */
 .img-portada {
@@ -325,19 +321,27 @@ h2 {
   display: flex;
   flex-wrap: wrap;       /* Si no hi caben, salten a la línia de sota */
   justify-content: space-evenly; /* Espaiat automàtic */
-  gap: 15px;
-  margin-top: 20px;
+  margin-top: -20px;
   align-items: center;
 }
 
 
 .enganxina {
-  width: 28%;            /* Ocupen un 40% de la pàgina, així escalen soles */
+  width: 26%;            /* Ocupen un 40% de la pàgina, així escalen soles */
   height: auto;
   cursor: pointer;
-  filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.3)); /* Ombra d'enganxina */
+  filter: 
+    /* 1. Els 4 costats per fer la vora blanca sòlida */
+    drop-shadow(3px 0 0 white) 
+    drop-shadow(-3px 0 0 white) 
+    drop-shadow(0 3px 0 white) 
+    drop-shadow(0 -3px 0 white)
+    
+    /* 2. L'ombra difuminada a sota del tot */
+    drop-shadow(3px 3px 4px rgba(0,0,0,0.3));
   transition: transform 0.2s ease;
   z-index: 900 !important;
+  
 }
 
 /* El truc orgànic: rotem les parells cap a un cantó i les senars cap a l'altre */
@@ -517,7 +521,7 @@ h2 {
 .text-peu {
   font-family: 'AP-b', sans-serif !important; /* Utilitzem la teva font personalitzada */
   font-size: 1rem;
-  color: #7cbe86; /* Pots canviar-ho al color que més t'agradi */
+  color: #000000; /* Pots canviar-ho al color que més t'agradi */
   opacity: 0.8; /* Una mica transparent perquè no robi protagonisme */
 }
 
@@ -565,7 +569,7 @@ h2 {
   gap: 30px;
   margin-top: 20px;
   transition: all 0.4s ease;
-  font-family: 'AP-b', sans-serif;
+  font-family: 'round','AP-b', sans-serif;
   font-size: 1.4rem;
   text-align: center;
 }
@@ -593,20 +597,20 @@ h2 {
 /* --- CLASSES DE COLORS I FILTRES --- */
 
 /* Portada: Negre (eliminem color amb saturació 0 i baixem brillantor) */
-.seccio-portada #etiqueta-pagina { color: #000000; }
-.seccio-portada img { filter: grayscale(1) brightness(0); }
+.seccio-portada #etiqueta-pagina { color: #fff1a2; text-shadow: 2px 2px 4px rgb(85, 54, 0); filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #864a00) drop-shadow(-2px 0px 0px #864a00) drop-shadow(0px 2px 0px #864a00) drop-shadow(0px -2px 0px #864a00); }
+.seccio-portada img { filter: hue-rotate(295deg) brightness(1.3) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #864a00) drop-shadow(-2px 0px 0px #864a00) drop-shadow(0px 2px 0px #864a00) drop-shadow(0px -2px 0px #864a00); }
 
 /* Shop: Verd (color original de la teva fletxa) */
-.seccio-shop #etiqueta-pagina { color: #000000; }
-.seccio-shop img { filter: grayscale(1) brightness(0); }
+.seccio-shop #etiqueta-pagina { color: #a4ffc7; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important; filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #4c5d00) drop-shadow(-2px 0px 0px #4c5d00) drop-shadow(0px 2px 0px #4c5d00) drop-shadow(0px -2px 0px #4c5d00); }
+.seccio-shop img { filter: hue-rotate(10deg) brightness(1.3) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #4c5d00) drop-shadow(-2px 0px 0px #4c5d00) drop-shadow(0px 2px 0px #4c5d00) drop-shadow(0px -2px 0px #4c5d00); }
 
 /* Portfolio: Blau (rotem el verd uns 160 graus cap al blau) */
-.seccio-portfolio #etiqueta-pagina { color: #000000; }
-.seccio-portfolio img { filter: grayscale(1) brightness(0); }
+.seccio-portfolio #etiqueta-pagina { color: #baf4ff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #006557) drop-shadow(-2px 0px 0px #006557) drop-shadow(0px 2px 0px #006557) drop-shadow(0px -2px 0px #006557); }
+.seccio-portfolio img { filter: hue-rotate(85deg) brightness(1.3) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #006557) drop-shadow(-2px 0px 0px #006557) drop-shadow(0px 2px 0px #006557) drop-shadow(0px -2px 0px #006557);  }
 
 /* CV: Violeta (rotem uns 240 graus) */
-.seccio-galeria #etiqueta-pagina { color: #000000; }
-.seccio-galeria img { filter: grayscale(1) brightness(0); }
+.seccio-galeria #etiqueta-pagina { color: #dab2ff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #200066) drop-shadow(-2px 0px 0px #200066) drop-shadow(0px 2px 0px #200066) drop-shadow(0px -2px 0px #200066); }
+.seccio-galeria img { filter: hue-rotate(150deg) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #200066) drop-shadow(-2px 0px 0px #200066) drop-shadow(0px 2px 0px #200066) drop-shadow(0px -2px 0px #200066);  }
 
 .peu-navegacio {
   position: relative;
@@ -616,8 +620,8 @@ h2 {
 }
 
 /* CV: Violeta (rotem uns 240 graus) */
-.seccio-cv #etiqueta-pagina { color: #ff97d9; }
-.seccio-cv img { filter: hue-rotate(200deg); }
+.seccio-cv #etiqueta-pagina { color: #ffc7eb; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #700086) drop-shadow(-2px 0px 0px #700086) drop-shadow(0px 2px 0px #700086) drop-shadow(0px -2px 0px #700086); }
+.seccio-cv img { filter: hue-rotate(200deg) brightness(1.3) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #700086) drop-shadow(-2px 0px 0px #700086) drop-shadow(0px 2px 0px #700086) drop-shadow(0px -2px 0px #700086); }
 .peu-navegacio {
   position: relative;
   z-index: 10; /* Per sobre de qualsevol ombra de la llibreta */
@@ -768,12 +772,15 @@ h2 {
   text-align: center;
   z-index: 1001;
   position: absolute;
-  top: 40px;
-  right: 20px;
+  top: 20px;
+  right: -10px;
+  transition: transform 0.3s ease;
+  transform: rotate(25deg);
 }
 
 .retro-button {
-    display: inline-flex; /* Per alinear icona i text en línia */
+  width: 130px;
+    display: inline-block; /* Per alinear icona i text en línia */
     align-items: center;  /* Alineació vertical centrada */
     padding: 8px 16px;    /* Espai intern (més estret i llarg) */
     border-radius: 10px; /* Molt arrodonit, com una pastilla */
@@ -783,7 +790,7 @@ h2 {
     font-weight: bold;
     font-size: 14px;
     color: #000;          /* Text de color negre */
-    box-shadow: 2px 3px 6px rgba(153, 0, 127, 0.785); /* Ombra exterior per donar profunditat */
+    
     transition: all 0.1s ease-in-out; /* Una petita transició per l'efecte click */
     z-index: 1001;
     font-family: AP-f, gap;
@@ -794,65 +801,11 @@ h2 {
             will-change: transform;
   }
 
-.retro-button {
-    background: linear-gradient(180deg, #ff35ab 30%, #f391d7 100%);
-    /* Opcional: una vora subtil per definir la forma */
-}
-
 /* El pseudo-element per a la capa de brillantor (highlight) a la meitat superior */
-.retro-button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 45%; /* Menys de la meitat per a un efecte més fi */
-    margin: 1.5px 3px 0 3px;
-    background: linear-gradient(180deg, #ffffff 0%, #ff00cc00 100%); /* Una capa blanca semi-transparent */
-    border-radius: 10px 10px 0 0; /* Arrodonit només a dalt */
-    pointer-events: none; /* Evita que la brillantor s'intercepti amb els clicks */
-}
 
 /* Efecte al passar el ratolí per sobre (hover) */
-.retro-button:hover {
-    background: linear-gradient(180deg, #ff35ab 30%, #ffc8ef 100%);
-    box-shadow: 2px 3px 6px rgb(153, 0, 127); /* Ombra una mica més gran */
-}
-
-/* Efecte en fer clic (active) */
-.retro-button:active {
-    box-shadow: 2px 3px 6px rgb(153, 0, 127); /* L'ombra es redueix per semblar premut */
-    top: 1px; /* El botó es mou una mica cap avall */
-}
-
-/* Estils per als elements interns (icona i text) */
-.retro-button .icon img{
-    width: 20px;/* Un tamany més gran per la icona */
-    line-height: 1;
-    position: absolute;
-    left: -4px;    /* Evitar que modifiqui l'alçada del text */
-}
-
-.retro-button .text {
-    line-height: 1;    /* Alineació vertical del text */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    color: white;
-  }
-
-/* Alineació de la icona a l'esquerra */
-.retro-button.icon-left {
-    flex-direction: row;
-}
-.retro-button.icon-left .icon {
-    margin-right: 1px; /* Espai a la dreta de la icona */
-}
-
-/* Alineació de la icona a la dreta */
-.retro-button.icon-right {
-    flex-direction: row;
-}
-.retro-button.icon-right .text {
-    margin-right: 12px; /* Espai a l'esquerra de la icona (ara a la dreta) */
+.button-container:hover {
+    transform: scale(1.2) rotate(-90deg);
 }
 
 @keyframes vibracio-intermitent {
@@ -910,7 +863,7 @@ h2 {
     font-size: 0.95rem;
     line-height: 1.5;
     margin-top: 15px;
-    font-family: inherit;
+    font-family: AP-l, Arial, Helvetica, sans-serif;
 }
 
 /* --- ESTILS DEL CARRUSSEL --- */
@@ -1046,13 +999,12 @@ h2 {
   
   /* Fem el fons el doble de llarg per poder-lo animar */
   background-size: 200% auto;
-  -webkit-text-stroke: 1px #000000;
   /* 3. LA MÀGIA: Retallem el fons perquè només es vegi per DINS de les lletres */
   -webkit-background-clip: text;
   background-clip: text;
   
   /* 4. Una ombra sòlida molt típica dels 90s/00s */
- filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.6));
+filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.277)) drop-shadow(2px 0px 0px #864a00) drop-shadow(-2px 0px 0px #864a00) drop-shadow(0px 2px 0px #864a00) drop-shadow(0px -2px 0px #864a00);
   
   /* Lletra gruixuda perquè els colors es vegin millor */
   font-weight: 800; 
@@ -1144,10 +1096,7 @@ body, * {
 #camera-wrapper {
   width: 100vw;
   height: 100vh;
-  background-image: url(assets/bk.webp);
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat; 
+
   
   /* Aquí apliquem la teva animació! */
   animation: cameraHandheld 12s infinite ease-in-out;
@@ -1199,13 +1148,18 @@ body, * {
   display: block; 
   width: 100%;
   margin-bottom: 15px;
+  
 }
 
 .galeria-inline-wrapper .img-galeria {
   width: 100%;
   display: block;
   /* (Els estils d'ombra i cantonades que ja tens s'aplicaran automàticament) */
+  aspect-ratio: 1.618 / 1;      /* Defineix la proporció àuria */
+  object-fit: cover;            /* Retalla la imatge sense deformar-la */
+  object-position: center;      /* Centra el retall (pots canviar-ho a 'top', etc.) */
 }
+
 
 /* Fletxes de dins la llibreta */
 .inline-btn {
@@ -1224,6 +1178,7 @@ body, * {
 .Galeria h3 {
    font-size: 1rem; 
    margin-bottom: 5px;
+   font-family: AP-b;
 }
 
 .fondo-cubre {
@@ -1233,67 +1188,65 @@ body, * {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Si veus que el marc no quadra amb els marges, pots canviar això per: object-fit: fill; */
-  z-index: 1000; /* Valor alt perquè estigui literalment per sobre del text i les fotos */
+  z-index: 9000; /* Valor alt perquè estigui literalment per sobre del text i les fotos */
   pointer-events: none; /* CRUCIAL: Deixa "passar" els clics a través de la imatge per poder tocar les fletxes i fer scroll */
   display: block;
+  border-radius: 0px 5px 5px 0;
 }
 
 /* =========================================
    NOU POPUP "CROMO / POLAROID" (Adaptat a mòbil)
    ========================================= */
 
+   
 /* Fem que el fons fosc tingui una mica més de blur */
 #fons-popup {
   position: fixed;
   top: 0; left: 0;
   width: 100%; 
   height: 100dvh; 
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px); /* Blur més fort per donar protagonisme al producte */
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
   z-index: 9999; 
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px; /* Menys padding al mòbil perquè el quadre aprofiti l'espai */
-  box-sizing: border-box; 
 }
 
 /* El contenidor principal tipus cromo/targeta */
 .finestra-popup {
-  width: 100%;
-  max-width: 450px; /* Més estret per fer efecte targeta */
-  background-color: #ffffff;
-  border: 3px solid #000000; /* Vora gruixuda rotllo còmic/Y2K */
-  border-radius: 12px;
-  padding: 20px;
   position: relative;
-  max-height: 85dvh; /* Limitem a un 85% de la pantalla del mòbil */
-  overflow-y: auto; 
-  overflow-x: hidden;
-  box-shadow: 6px 6px 0px rgba(0,0,0,1); /* Ombra dura! */
-  margin: 0;
+  width: 90vw;
+  max-width: 420px; /* Mida màxima que vols que ocupi el mòbil */
+  
+  /* Mantenim la proporció del Samsung S5230 (Aproximadament 1:2) */
+  aspect-ratio: 466 / 940; 
+  
+  background-image: url('assets/samsung_s5230_hello_kitty_5.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  /* Eliminem fons i bordes vells de la targeta */
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  overflow: visible; /* Perquè el botó de tancar pugui sobresortir */
 }
 
 /* Botó de tancar estètica adhesiu / pin */
 #tancar-popup {
   position: absolute;
-  top: -10px; 
-  right: -5px;
-  width: 40px;
-  height: 40px;
-  background-color: #ff97d9; /* Rosa del teu disseny */
-  border: 3px solid #000000;
+  top: 5%; 
+  right: 5%;
+  width: 35px;
+  height: 35px;
+  background-color: #ff97d9;
+  border: 2px solid #000;
   border-radius: 50%;
-  font-family: 'gap-black', sans-serif;
-  font-size: 1.5rem;
-  color: #000000;
+  z-index: 100;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 3px 3px 0px rgba(0,0,0,1);
-  transition: transform 0.2s;
-  z-index: 100; /* Sempre per sobre */
+  box-shadow: 2px 2px 0px #000;
 }
 
 #tancar-popup:active {
@@ -1301,10 +1254,23 @@ body, * {
   box-shadow: 0px 0px 0px rgba(0,0,0,1);
 }
 
-.popup-contingut {
+popup-contingut {
+  position: absolute;
+  
+  /* AJUSTA AQUESTS PERCENTATGES fins que quadrin amb el rectangle de la pantalla de la teva foto */
+  top: 18.5%;    /* Distància des de dalt */
+  left: 11.5%;   /* Distància des de l'esquerra */
+  width: 77%;    /* Amplada del vidre */
+  height: 56.5%; /* Alçada del vidre */
+  
+  background-color: #fff; /* El color de fons de la pantalla del mòbil */
+  overflow-y: auto;       /* Permet scroll si el contingut és llarg */
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+  padding: 15px;
+  box-sizing: border-box;
 }
 
 /* Ajustem la imatge perquè no empenyi el botó cap avall al mòbil */
@@ -1349,7 +1315,7 @@ body, * {
   font-size: 0.95rem;
   line-height: 1.4;
   margin-top: 10px;
-  font-family: inherit;
+  font-family: AP-l, Arial, Helvetica, sans-serif;
   background-color: #f5f9b1; /* El groguet de les pestanyes */
   padding: 12px;
   border-radius: 8px;
@@ -1366,7 +1332,7 @@ body, * {
   background-color: #cfffd8; /* El verd de Monomonitos */
   color: #000;
   text-decoration: none;
-  font-family: 'gap-black', sans-serif;
+  font-family: 'AP-f', sans-serif;
   font-size: 1.2rem;
   border-radius: 8px;
   border: 3px solid #000;
@@ -1385,6 +1351,74 @@ body, * {
   box-shadow: 0px 0px 0px rgba(0,0,0,1);
 }
 
+
+/* --- ESTILS PEL POPUP DEL TELÈFON --- */
+
+.marc-telefon {
+  position: relative;
+  width: 90vw; /* Ocuparà el 90% de la pantalla com a màxim */
+  max-width: 350px; /* Evita que el telèfon es vegi gegant als ordinadors */
+  
+  /* Aquesta és la proporció aproximada del teu telèfon. 
+     Ajusta-la si la imatge es veu deformada (ex: 1/2, 9/16, etc.) */
+  aspect-ratio: 1 / 1.8; 
+  
+  /* Posa aquí la ruta correcta a la teva imatge */
+  background-image: url('assets/movil.webp'); 
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Centrar dins l'overlay */
+  margin: 0 auto;
+}
+
+.pantalla-telefon {
+  position: absolute;
+  
+  /* ⚠️ IMPORTANT: Ajusta aquests percentatges "a ull" 
+      perquè la caixa blanca encaixi EXACTAMENT al forat de la pantalla del teu jpeg. */
+  top: 19.4%;    /* Distància des de dalt de la imatge */
+  left: 8.7%;   /* Distància des de l'esquerra */
+  width: 81.8%;  /* Amplada de la pantalla respecte a la imatge */
+  height: 64.4%; /* Alçada de la pantalla respecte a la imatge */
+  
+  background-color: #ffffff; /* Fons blanc per a la botiga */
+  background: linear-gradient(180deg, #ffdef9 0%, #ffffff 4%);
+  border-radius: 5px; /* Un petit arrodonit si la pantalla original ho és */
+  overflow-y: auto; /* Permet fer scroll si la descripció és llarga */
+  overflow-x: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Opcional: Fer el scrollbar més bonic i petit per la pantalla del mòbil */
+.pantalla-telefon::-webkit-scrollbar {
+  width: 4px;
+}
+.pantalla-telefon::-webkit-scrollbar-thumb {
+  background: #ffa0d4; /* Color rosa Hello Kitty */
+  border-radius: 4px;
+}
+
+/* Adaptem el contingut intern a vertical per encabir-ho bé a la pantalla */
+.popup-contingut {
+  display: flex;
+  flex-direction: column; /* Apila la foto i el text un sobre l'altre */
+  gap: 15px;
+}
+
+/* Ajustem el botó de tancar perquè no tapi el telèfon */
+#tancar-popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  /* La resta dels teus estils per al botó aquí */
+}
+
+
+
 /* Adaptació a pantalles grans (Escriptori) */
 @media (min-width: 768px) {
   .finestra-popup {
@@ -1400,16 +1434,26 @@ body, * {
   .popup-dreta {
     text-align: left; /* Tornem a alinear a l'esquerra */
   }
+  .marc-telefon {
+    transform: rotate(-90deg);
+    max-width: 600px;  
+  }
+  .pantalla-telefon{
+    transform: rotate(90deg);
+    top: 28.4%;    /* Distància des de dalt de la imatge */
+  left: -8%;   /* Distància des de l'esquerra */
+  width: 115.1%;  /* Amplada de la pantalla respecte a la imatge */
+  height: 46%; /* Alçada de la pantalla respecte a la imatge */
+  }
 }
 
-.shop-title {
-  font-family: AP-b;
-  font-size: 4rem;
-  position: absolute;
-  left: 120px;
-  font-style: oblique;
-  color: #b7edce;
-  z-index: 1000;
+.shop-marca {
+  position: relative;
+  z-index: 1;
+  width: 300px;
+  height: auto;
+  top: -10px;
+  right: -18px;
 }
 
 /* =========================================
@@ -1417,9 +1461,16 @@ body, * {
    ========================================= */
 
 /* 1. Desbloquegem el scroll vertical del cos de la pàgina */
-body {
-  overflow-y: auto !important; 
-  overflow-x: hidden;          
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  
+  /* Aquestes tres línies són la màgia: */
+  overflow: hidden !important; /* Amaga qualsevol scroll (vertical i horitzontal) */
+  overscroll-behavior: none; /* Evita l'efecte de "rebot" o "estirar per recarregar" als mòbils */
+  touch-action: none; /* Evita que el navegador intenti fer scroll quan arrossegues el dit */
 }
 
 /* 2. Forcem al fons animat a ser més llarg perquè no es talli la imatge de fons al fer scroll */
@@ -1433,24 +1484,32 @@ body {
 /* 3. Maquetació del contenidor de contacte (clavat al teu croquis) */
 /* 3. Contenidor de contacte: Flexbox per centrar els botons */
 #contact-container {
-  position: absolute;
-  top: calc(100% + 90px); /* Distància sota la llibreta */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 500px;
-  
-  /* Utilitzem Flexbox per posar-los de costat i centrats */
-  display: flex;
-  flex-direction: row; 
-  justify-content: center;
-  align-items: center;
-  gap: 20px; /* Espai entre els dos botons */
-  flex-wrap: wrap; /* Si la pantalla del mòbil és molt petita, un baixarà sota l'altre */
+    position: fixed;          /* Fixat a la pantalla, ignora el moviment de la llibreta */
+    top: 15px;                /* Distància des de dalt */
+    left: 0;
+    width: 100%;              /* Ocupa tota l'amplada per poder centrar */
+    display: flex;
+    justify-content: center;  /* En mòbil, els posem al centre */
+    gap: 15px;                /* Espai entre els dos botons */
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 9999;            /* Per sobre de qualsevol capa de la llibreta */
+    pointer-events: none;     /* Permet fer clic a través del buit entre botons */
+
+  }
+
+#contact-container a {
+    pointer-events: auto;     /* Fa que els botons sí que siguin clicables */
+}
+
+@media (min-width: 768px) {
+  #contact-container {
+    left: 0;
+  }
 }
 
 /* --- ESTIL DELS BOTONS DE CONTACTE --- */
-#instagram, #mail {
+#instagram, #mail, #button-cv {
     display: inline-flex; 
     align-items: center;  
     justify-content: center;
@@ -1464,10 +1523,17 @@ body {
     background: linear-gradient(180deg, #ff35ab 30%, #f391d7 100%);
     border: 2px solid #ff97d9;
     text-decoration: none;
+    
+    
+}
+
+#button-cv {
+   background: linear-gradient(180deg, #9234c9 30%, #ffa5f4 100%);
+   border: 2px solid #ffa5f4;
 }
 
 /* El pseudo-element per al "brillo" (Glossy effect) */
-#instagram::before, #mail::before {
+#instagram::before, #mail::before, #button-cv::before {
     content: "";
     position: absolute;
     top: 0;
@@ -1480,15 +1546,21 @@ body {
     pointer-events: none; 
 }
 
+
+
 /* Efecte Hover (al passar el ratolí) */
-#instagram:hover, #mail:hover {
+#instagram:hover, #mail:hover, #button-cv:hover {
     background: linear-gradient(180deg, #ff35ab 30%, #ffc8ef 100%);
     box-shadow: 2px 4px 8px rgba(153, 0, 127, 0.6); 
     transform: translateY(-2px);
 }
 
+#button-cv:hover {
+  background: linear-gradient(180deg, #9234c9 30%, #ffcef9 100%);
+}
+
 /* Efecte Active (al fer clic) */
-#instagram:active, #mail:active {
+#instagram:active, #mail:active, #button-cv:active {
     box-shadow: 1px 1px 3px rgba(153, 0, 127, 0.6); 
     transform: translateY(1px); 
 }
@@ -1501,13 +1573,242 @@ body {
 }
 
 /* Ajustos pel text de dins els botons */
-#instagram p, #mail p {
+#instagram p, #mail p, #button-cv {
     font-family: 'gap', sans-serif;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: #ffffff;
     margin: 0;
     line-height: 1;
     z-index: 2; /* Assegurem que estigui per sobre del brillo */
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Ombra fina pel text blanc */
+font-family: 'AP-l', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+
+
+#movil {
+  position: absolute; 
+  width: 100%;
+  max-width: 540px;
+  margin-left: 20px;
+}
+
+/* =========================================
+   ESTILS DE LES FINESTRES DEL PORTFOLI RETRO
+   ========================================= */
+
+.finestra-retro {
+  background: linear-gradient(135deg, #ffe1f0, #ffb6c1);
+  border: 2px solid #ff97d9;
+  border-radius: 8px 8px 3px 3px;
+  box-shadow: 
+    inset 2px 2px 5px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* Capçalera de la finestra (Pink Windows 98 vibes) */
+.capcalera-finestra {
+  background: linear-gradient(90deg, #ff35ab, #f391d7);
+  color: white;
+  padding: 6px 12px;
+  font-family: 'AP-b', sans-serif;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #db4a8b;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.4);
+}
+
+.botons-finestra button {
+  background: #ffffff;
+  border: 1px solid #ff1493;
+  color: #ff1493;
+  border-radius: 5px;
+  width: 22px;
+  height: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 14px;
+  padding: 0;
+}
+.botons-finestra button:hover {
+  background: #ffb6c1;
+  color: white;
+}
+
+/* Contingut intern de la finestra */
+.contingut-finestra {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  font-family: 'AP-l', Tahoma, sans-serif;
+  font-size: 0.85rem;
+  color: #333;
+  flex: 1;
+  overflow-y: auto; /* Permet fer scroll si la fas molt petita */
+}
+
+/* Estils del carrusel de cada pestanya */
+.carrusel-finestra {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  background: #fff;
+  border: 2px solid #ffb6c1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.carrusel-finestra img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.btn-fletxa {
+  background: rgba(255, 20, 147, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 25px;
+  font-weight: bold;
+}
+.btn-fletxa:hover { background: rgba(255, 20, 147, 0.9); }
+.btn-fletxa.prev { left: 5px; }
+.btn-fletxa.next { right: 5px; }
+
+/* COMPORTAMENT A L'ORDINADOR (Més de 768px) */
+@media (min-width: 769px) {
+  /* Si la finestra està com a popup a l'escriptori */
+  .finestra-retro.a-escriptori {
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    resize: both; /* Fa que es pugui fer gran i petita des de la cantonada! */
+    margin: 0;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.3);
+  }
+  .finestra-retro.a-escriptori .capcalera-finestra {
+    cursor: grab; /* Indica que es pot moure */
+  }
+  .finestra-retro.a-escriptori .capcalera-finestra:active {
+    cursor: grabbing;
+  }
+
+  /* Si la finestra està esperant a dins la llibreta */
+  .finestra-retro.a-llibreta {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .finestra-retro.a-llibreta:hover {
+    transform: scale(1.02);
+  }
+  .finestra-retro.a-llibreta .botons-finestra {
+    display: none; /* Amaguem el botó minimitzar mentre sigui a dins la llibreta */
+  }
+}
+
+/* A MOBIL: Forcem que sempre estiguin a dins la llibreta independentment de les classes */
+@media (max-width: 768px) {
+  .finestra-retro {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    resize: none !important;
+    height: auto !important;
+  }
+  .finestra-retro .botons-finestra { display: none; }
+}
+/* 1. Modifica el body para que sea un Flexbox vertical */
+body {
+  margin: 0;
+  height: 100vh;
+  height: 100dvh; /* Importantísimo para que respete la barra de los móviles */
+  overflow: hidden; /* Evita que la página haga scroll */
+  
+  display: flex;             /* NOU: Activa Flexbox */
+  flex-direction: column;    /* NOU: Coloca los elementos de arriba a abajo */
+  
+  /* Mantén el resto de tu fondo igual: */
+  background-color: #ffffff;
+  font-family: 'AP-l', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url(assets/bk.webp);
+  background-position: center center; 
+  background-attachment: fixed;
+  background-size: cover; 
+  background-repeat: no-repeat;
+}
+
+/* 2. Asegura que los botones de arriba tengan sus 15px por debajo */
+#contact-container {
+  flex-shrink: 0; /* Evita que se aplaste al hacer la pantalla pequeña */
+  margin-bottom: 15px; /* AQUÍ TIENES TUS 15PX EXACTOS */
+  
+  /* Asegura que el contenido quede centrado y por encima de lo demás */
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 100;
+}
+
+@media (min-width: 768px) {
+    #contact-container {
+        justify-content: space-between; /* Separa un a cada punta */
+        top: 20px;
+        padding: 0 40px;             /* Augmentem la distància de les cantonades */
+    }
+    #instagram p, #mail p, #button-cv {
+      font-size: 1.1rem;
+    }
+}
+
+/* 3. El wrapper ocupará todo el espacio restante automáticamente */
+#camera-wrapper {
+  flex-grow: 1; /* Ocupa toda la altura que queda por debajo de los botones */
+  display: flex;
+  justify-content: center; /* Centra el escritorio en horizontal */
+  align-items: center;     /* Centra el escritorio en vertical en el espacio libre */
+  position: relative;
+  width: 100%;
+  padding-top: 17px;
+}
+
+/* 4. MODIFICA TOTALMENTE .escriptori */
+.escriptori {
+  position: relative; /* ¡Cambiamos de absolute a relative! */
+  width: 400px; 
+  height: 550px;
+  
+  /* Centramos la libreta y pestañas en su interior */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  transform-origin: center center; /* La escala de JS se hará desde el centro */
+  
+  /* ELIMINAR LOS TOP, LEFT Y MARGINS NEGATIVOS AQUÍ */
+}
+
+.fecha-galeria {
+  font-size: 0.65rem;
+  color: #AC9FFE;
 }
